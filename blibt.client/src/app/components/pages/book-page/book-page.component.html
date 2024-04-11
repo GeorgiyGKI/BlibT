@@ -1,1 +1,53 @@
-<p>book-page works!</p>
+<section>
+  <div class="w-layout-blockcontainer w-container">
+    <div class="div-block-49">
+      <div class="div-block-50">
+        <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" class="image-2" />
+        <div class="text-block-11">Download</div>
+        <div class="div-block-51">
+         <svg class="svg-icon heart" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+              <g id="Layer_2" data-name="Layer 2">
+                <g id="heart">
+                  <g id="heart-2" data-name="heart">
+                    <rect class="cls-1" width="24" height="24" fill="transparent" opacity="0"></rect>
+                    <path class="path-2" class="cls-2" d="M12,21h0a1,1,0,0,1-.71-.29L3.52,12.93a5.26,5.26,0,0,1,0-7.4,5.24,5.24,0,0,1,7.4,0L12,6.61l1.08-1.08a5.24,5.24,0,0,1,7.4,0,5.26,5.26,0,0,1,0,7.4l-7.77,7.78A1,1,0,0,1,12,21Z" fill="currentColor"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <svg class="svg-icon favorite" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+              <g id="Layer_2" data-name="Layer 2">
+                <g id="star">
+                  <g id="star-2" data-name="star">
+                    <rect class="cls-1" width="24" height="24" transform="translate(24 0) rotate(90)" fill="transparent" opacity="0"></rect>
+                    <path class="cls-2" d="M17.56,21a1,1,0,0,1-.46-.11L12,18.22,6.9,20.89a1,1,0,0,1-1.45-1.06l1-5.63-4.12-4a1,1,0,0,1-.25-1,1,1,0,0,1,.81-.68l5.7-.83L11.1,2.56a1,1,0,0,1,1.8,0l2.54,5.12,5.7.83a1,1,0,0,1,.81.68,1,1,0,0,1-.25,1l-4.12,4,1,5.63a1,1,0,0,1-.4,1A1,1,0,0,1,17.56,21Z" fill="currentColor"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+        </div>
+      </div>
+      <div class="div-block-52">
+        <div class="div-block-53">
+          <p>Author: {{book?.authorName}}</p>
+          <p class="book-name">{{book?.title}}</p>
+          <div class="tags-div" *ngFor="let genre of book.genres">
+            <div class="tag-text">{{genre.name}}</div>
+          </div>
+          <p>Likes: {{book?.likes}}</p>
+          <p>Views: {{book?.views}}</p>
+        </div>
+        <p class="paragraph">{{book?.description}}</p>
+      </div>
+    </div>
+    <div class="div-block-54">
+      <p class="paragraph-2">See also:</p>
+      <div class="w-layout-grid grid-4">
+        <div class="div-block-55" *ngFor="let rndBook of rndBooks">
+          <img  [src]="resoursesUrl + rndBook.productImageName" loading="lazy" id="w-node-b4b3ba37-a937-1b5f-cd43-8a9c3503c470-5f5b38f4" alt="" class="image-2" />
+          <div>{{rndBook.title}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

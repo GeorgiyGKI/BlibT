@@ -1,1 +1,29 @@
-<p>register-page works!</p>
+<section class="section-5">
+  <div class="div-block-42">
+    <div class="modalform">
+      <h1 class="heading">Registration</h1>
+      <div class="form-block w-form">
+        <form class="form" [formGroup]="regForm">
+          <div class="form-field-div">
+            <label for="name-2" class="field-label">Name</label>
+            <input class="text-field w-input" formControlName="name" name="name">
+          </div>
+          <div class="form-field-div">
+            <label for="name-2" class="field-label">E-mail</label>
+            <input class="text-field w-input" formControlName="email" name="email" type="email">
+          </div>
+          <div class="form-field-div">
+            <label for="name-2" class="field-label">Password</label>
+            <input class="text-field w-input" formControlName="password" name="password" type="password">
+          </div>
+          <label for="name-3" class="redirect-text">Do you have already an account?</label>
+          <label routerLink="/login" for="name-3"  class="redirect-text link">login</label>
+          <div class="buttons-div">
+            <input type="submit"  (onClick)="registration()" class="submit-button w-button" value="Submit">
+            <a routerLink="/" class="button cancel w-button">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

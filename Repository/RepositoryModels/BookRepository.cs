@@ -19,6 +19,11 @@ namespace Repository.RepositoryModels.BookRepository
         public async Task<IEnumerable<Book>> GetAllBooksAsync(bool trackChanges) =>
                await FindAll(trackChanges).ToListAsync();
 
-        
-    }
+        public async Task<IEnumerable<Book>> GetBooksByGenreIdAsync(int genreId, bool trackChanges)
+        {
+            return await FindByCondition (b => b.BookGenres.Any(bg => bg.GenreId == genreId), trackChanges)
+                .Include(b => b.Genres)
+                .ToListAsync();
+        }
+    } 
 }

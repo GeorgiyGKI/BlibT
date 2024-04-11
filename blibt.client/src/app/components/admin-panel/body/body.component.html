@@ -1,0 +1,16 @@
+<section class="section-4">
+
+  <div class="admin-panel-wrapper">
+    <app-left-header></app-left-header>
+
+    <ng-container *ngIf="currentRoute === '/admin/books'">
+      <app-data-table></app-data-table>
+    </ng-container>
+    <ng-container *ngIf="currentRoute === '/admin/genres'">
+      <app-genre-table></app-genre-table>
+    </ng-container>
+    <ng-container *ngIf="currentRoute === '/admin/authors'">
+      <app-author-table></app-author-table>
+    </ng-container>
+  </div>
+</section>

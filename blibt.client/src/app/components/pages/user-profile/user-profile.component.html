@@ -1,0 +1,46 @@
+<section class="section-6">
+  <div class="w-layout-blockcontainer container w-container">
+    <div>
+      <div class="div-block-57">
+        <div class="div-block-58">
+          <a (click)="scrollToSection('#profile-info-sect')" class="div-block-59 w-inline-block">
+            <div class="text-block-12">Profile info</div>
+          </a>
+          <a (click)="scrollToSection('#fav-books-sect')" class="div-block-59 w-inline-block">
+            <div class="text-block-12">Favorite bookss</div>
+          </a>
+        </div>
+        <div>
+          <section id="profile-info-sect" class="profile-info-sect">
+            <div>
+              <h2 id="w-node-e9c6e1f7-ab9e-dca9-256a-10f4d90dc170-5f5b38f3" class="heading-6">About</h2>
+              <div class="div-block-43">
+                <div>
+                  <div class="text-block-9">Name:</div>
+                  <div class="div-block-44">
+                    <p>{{user?.name}}</p>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-block-9">E-mail:</div>
+                  <div class="div-block-44">
+                    <p>{{user?.email}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="fav-books-sect" class="fav-books-sect">
+            <h2 id="w-node-e7f8ee6e-f7fd-653d-f197-88b229c02b8b-5f5b38f3" class="heading-6">Favorits books</h2>
+            <div class="div-block-48">
+              <div class="div-block-47" *ngFor="let book of user?.books">
+                <img src="" loading="lazy" alt="">
+                <div class="text-block-10">{{book?.title}}</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

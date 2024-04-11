@@ -2,9 +2,6 @@
 using Repository.RepositoryModels.AuthorRepository;
 using Repository.RepositoryModels.BookRepository;
 using Repository.RepositoryModels.GenreRepository;
-using Repository.RepositoryModels.ReaderRepository;
-using Repository.RepositoryModels.TransactionRepository;
-using Repository.RepositoryModels.TransactonStatusRepository;
 
 namespace Contracts
 {

@@ -8,9 +8,5 @@ namespace Shared.DataTransferObject
         [Required]
         [StringLength(30)]
         public string FullName { get; init; }
-
-        [Required]
-        [StringLength(30)]
-        public string Country { get; init; }
     }
 }

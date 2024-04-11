@@ -6,7 +6,7 @@ namespace Shared.DataTransferObject
     {
         public int Id { get; init; }
         [Required]
-        [StringLength(15)]
-        public string Name { get; init; }
+        [StringLength(35)]
+        public string? Name { get; init; }
     }
 }

@@ -8,5 +8,6 @@ namespace Repository.RepositoryModels.BookRepository
         Task<Book> GetBookAsync(int bookId, bool trackChanges);
         void CreateBook(Book book);
         void DeleteBook(Book book);
+        Task<IEnumerable<Book>> GetBooksByGenreIdAsync(int genreId, bool trackChanges);
     }
 }

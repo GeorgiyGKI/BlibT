@@ -14,5 +14,6 @@ namespace Service.GenreService
         Task<GenreDto> CreateGenreAsync(GenreDto genre);
         Task DeleteGenreAsync(int id, bool trackChanges);
         Task UpdateGenreAsync(int id, GenreDto genreForUpdate, bool trackChanges);
+        Task<IEnumerable<GenreDto>> GetGenresByBookId(int bookId, bool trackChanges);
     }
 }

@@ -1,1 +1,48 @@
-<p>home works!</p>
+<section class="books">
+  <div class="w-layout-blockcontainer container w-container">
+    <div>
+      <div>
+        <div>
+          <h1>Online book library / Book s</h1>
+          <p>Here you can read whatever you want.</p>
+          <div class="order-div">
+            <div class="order-select-block active">Date</div>
+            <div (click)="sortByLikes()"class="order-select-block">Likes</div>
+            <div class="order-select-block">Views</div>
+            <div class="order-select-block">Random</div>
+          </div>
+        </div>
+        <div class="book-list-all">
+          <div id="w-node-ca45952d-71ef-afb7-e904-c10d19cadcb3-5f5b38e6" class="w-layout-layout quick-stack wf-layout-layout">
+            <div id="w-node-_57b21e04-26a9-2f3d-2b45-6da8c5fa77e1-5f5b38e6" class="w-layout-cell cell" *ngFor="let book of books">
+              <div (click)="goToAbout(book.id)">
+                <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" class="book-img-div">
+                <p class="bookname">{{book.title}}</p>
+                <div class="tags-div">
+                  <div class="tag-text" *ngFor="let genre of book.genres">{{genre.name}}</div>
+                </div>
+                <p class="description-text">{{book.description}}</p>
+                <p class="author">pages: {{book.pages.length}}</p>
+                <p class="author">by {{book.authorName}}</p>
+                <div class="icons-div">
+                  <div class="flex-icons">
+                    <img src="/assets/65d7817d4563120af4297bc1_heart.png" loading="lazy" width="30" alt="" class="stats-icon">
+                    <div class="countnearicon">{{book.views}}</div>
+                  </div>
+                  <div class="flex-icons">
+                    <img src="/assets/65d7818b540dd98b67c40cb8_like.png" loading="lazy" alt="" class="stats-icon">
+                    <div class="countnearicon">{{book.likes}}</div>
+                  </div>
+                  <div class="flex-icons">
+                    <img src="/assets/65d7810f3b62b64863dc413a_eyeball-icon-png-eye-icon-1.png" loading="lazy" alt="" class="stats-icon">
+                    <div class="countnearicon">{{book.favorits}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

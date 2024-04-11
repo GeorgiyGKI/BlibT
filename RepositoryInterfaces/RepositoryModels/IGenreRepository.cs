@@ -9,5 +9,6 @@ namespace Repository.RepositoryModels.GenreRepository
         Task<Genre> GetGenreAsync(int genreId, bool trackChanges);
         void CreateGenre(Genre genre);
         void DeleteGenre(Genre genre);
+        Task<IEnumerable<Genre>> GetGenresByBookIdAsync(int bookId, bool trackChanges);
     }
 }

@@ -1,0 +1,41 @@
+<div [ngStyle]="{ 'display': modalService.modalInfoVisible ? 'flex' : 'none' }" class="modalinfowrapper">
+  <div class="div-block-39">
+    <div class="modal-info-container">
+      <h1 class="heading-5">Full information</h1>
+      <div class="div-block-40">
+        <ul role="list" class="list-4 w-list-unstyled">
+          <li class="list-item">
+            <div class="full-info-label">Name:</div>
+            <div class="full-info-content"> {{book.title}}</div>
+          </li>
+          <li class="list-item">
+            <div class="full-info-label">Image</div><img src="https://assets-global.website-files.com/plugins/Basic/assets/placeholder.60f9b1840c.svg" loading="lazy" alt="" class="image">
+          </li>
+          <li class="list-item">
+            <div class="full-info-label">Genres:</div>
+            <div class="full-info-content">genre</div>
+          </li>
+          <li class="list-item">
+            <div class="full-info-label">Likes:</div>
+            <div class="full-info-content">10</div>
+          </li>
+          <li class="list-item">
+            <div class="full-info-label">Favorits:</div>
+            <div class="full-info-content">10</div>
+          </li>
+          <li class="list-item">
+            <div class="full-info-label">Favorits:</div>
+            <div class="full-info-content">10</div>
+          </li>
+          <li class="list-item">
+            <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" />
+           </li>
+        </ul>
+        <div>
+        </div>
+      </div>
+      <div class="text-block-8" (click)="closeModal()">X</div>
+    </div>
+    <div class="modalbg"></div>
+  </div>
+</div>

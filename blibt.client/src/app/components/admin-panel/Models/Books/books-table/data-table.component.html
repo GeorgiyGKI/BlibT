@@ -1,0 +1,31 @@
+<app-book-form  [book]="selectedBook"></app-book-form>
+<app-book-info-form [book]="selectedBook"></app-book-info-form>
+<div class="wrapper">
+  <div class="div-block-33">
+    <h1 class="heading-3">List of books</h1>
+    <div (click)="openCreateModal()" data-w-id="225ad0bc-98a0-aa88-1ca3-8b47d27f11a8" class="admin-btn">New+</div>
+  </div>
+  <div class="w-layout-grid grid-3">
+    <div class="w-layout-grid table-header">
+      <div>#</div>
+      <div>Name</div>
+      <div>Image</div>
+      <div>Likes</div>
+      <div>Views</div>
+      <div>Favorits</div>
+      <div>pages</div>
+    </div>
+    <div class="w-layout-grid grid-2" *ngFor="let book of books">
+      <div><div>{{book.id}}</div></div>
+      <div><div class="text-block-7">{{book.title}}</div></div>
+      <div><img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" /></div>
+      <div>{{book.likes}}</div>
+      <div>{{book.views}}</div>
+      <div>{{book.favorits}}</div>
+      <div>{{book.pages}}</div>
+      <div (click)="Delete(book.id)" class="admin-btn delete">Delete</div>
+      <div (click)="openEditModal(book)" data-w-id="ab7592de-ecd9-8fa5-48c3-6d461739b423" class="admin-btn edit">Edit</div>
+      <div data-w-id="608ff1de-b2f3-012a-2799-9384739d540b" class="full-info-btn edit" (click)="openInfoModal(book)">fullInfo</div>
+    </div>
+  </div>
+</div>

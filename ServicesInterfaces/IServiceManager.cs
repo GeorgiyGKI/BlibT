@@ -1,6 +1,8 @@
-﻿using Service.AuthorService;
+﻿using Service.AuthenticationService;
+using Service.AuthorService;
 using Service.BookService;
 using Service.GenreService;
+using ServicesInterfaces;
 
 namespace Service.ServiceManager
 {
@@ -9,5 +11,7 @@ namespace Service.ServiceManager
         IAuthorService AuthorService { get; }
         IBookService BookService { get; }
         IGenreService GenreService { get; }
+        IAuthenticationService AuthenticationService { get; }
+        IUserService UserService { get; }
     }
 }

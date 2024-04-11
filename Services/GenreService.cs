@@ -68,5 +68,14 @@ namespace Service.GenreService
             genreEntity.Id = id;
             await _repository.SaveAsync();
         }
+
+        public async Task<IEnumerable<GenreDto>> GetGenresByBookId(int bookId, bool trackChanges)
+        {
+            var genre = await _repository.Genre.GetGenresByBookIdAsync(bookId, trackChanges) ?? throw new BookNotFoundException(bookId);
+            var genreDto = _mapper.Map<IEnumerable<GenreDto>>(genre);
+
+            return genreDto;
+        }
+
     }
 }

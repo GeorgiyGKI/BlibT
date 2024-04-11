@@ -1,0 +1,20 @@
+<app-genre-form [genre]="selectedGenre"></app-genre-form>
+<div class="wrapper">
+  <div class="div-block-33">
+    <h1 class="heading-3">List of genres</h1>
+    <div (click)="openCreateModal()" class="admin-btn">New+</div>
+  </div>
+  <div class="w-layout-grid grid-3">
+    <div class="w-layout-grid table-header">
+      <div>#</div>
+      <div>Name</div>
+    </div>
+    <div class="w-layout-grid grid-2" *ngFor="let genre of genres">
+      <div><div>{{genre.id}}</div></div>
+      <div><div class="text-block-7">{{genre.name}}</div></div>
+      <div (click)="Delete(genre.id)" class="admin-btn delete">Delete</div>
+      <div (click)="openEditModal(genre)" class="admin-btn edit">Edit</div>
+    </div>
+  </div>
+</div>
+

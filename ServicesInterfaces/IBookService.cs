@@ -1,10 +1,4 @@
 ﻿using Shared.DataTransferObject;
-using Shared.RequestFeatures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.BookService
 {
@@ -15,5 +9,7 @@ namespace Service.BookService
         Task<BookDto> CreateBookAsync(BookDto book);
         Task DeleteBookAsync(int id, bool trackChanges);
         Task UpdateBookAsync(int id, BookDto bookForUpdate, bool trackChanges);
+        Task<IEnumerable<BookDto>> GetBooksByGenreIdAsync(int genreId, bool trackChanges);
+        Task<IEnumerable<BookDto>> GetRndBooksAsync(int amount = 5, bool all = true);
     }
 }

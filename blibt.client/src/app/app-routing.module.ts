@@ -1,7 +1,39 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { HomeComponent } from './components/pages/home/home.component';
+import { BodyComponent } from './components/admin-panel/body/body.component';
+import { DataTableComponent } from './components/admin-panel/Models/Books/books-table/data-table.component';
+import { GenreTableComponent } from './components/admin-panel/Models/Genres/genre-table/genre-table.component';
+import { AuthorTableComponent } from './components/admin-panel/Models/Authors/author-table/author-table.component';
+import { LoginPageComponent } from './components/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { AuthGuard } from './shared/quards/authGuard';
+import { RoleGuard } from './shared/quards/roleGuard';
+import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { BookPageComponent } from './components/pages/book-page/book-page.component';
+
+const routes: Routes = [
+  {
+    path: '', component: HomeComponent,
+  },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'registration', component: RegisterPageComponent },
+  {
+    path: 'admin', component: BodyComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'books', component: DataTableComponent },
+      { path: 'genres', component: GenreTableComponent },
+      { path: 'authors', component: AuthorTableComponent },
+    ],
+    data: {
+      role: 'Administrator'
+    }
+  },
+  { path: 'profile', component: UserProfileComponent },
+  { path: 'about/:id', component: BookPageComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

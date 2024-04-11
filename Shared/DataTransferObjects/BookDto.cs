@@ -1,30 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shared.DataTransferObject
 {
     public record BookDto
     {
-        public int Id { get; init; }
-
-        [Required]
-        [StringLength(30)]
-        public string Title { get; init; }
-
-        [Required]
-        public int AuthorId { get; init; }
-
-        [Required]
-        [Range(0, 9999)]
-        public int Year { get; init; }
-
-        [Required]
-        public int GenreId { get; init; }
-
-        [Required]
-        [Range(1, 99)]
-        public int Quantity { get; init; }
-
-        [Required]
-        public FileInfo ImageData { get; init; }
+        public int? Id { get; set; }
+        public List<string>? Pages { get; set; }
+        public string? ProductImageName { get; set; }
+        public List<string>?  GenresId { get; set; }
+        public int? AuthorId { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public int? Likes { get; set; } = 0;
+        public int? Views { get; set; } = 0;
+        public int? Favorits { get; set; } = 0;
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
     }
 }

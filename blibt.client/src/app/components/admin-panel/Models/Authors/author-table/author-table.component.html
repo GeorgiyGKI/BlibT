@@ -1,0 +1,20 @@
+<app-author-form [author]="selectedAuthor"></app-author-form>
+<div class="wrapper">
+  <div class="div-block-33">
+    <h1 class="heading-3">List of authors</h1>
+    <div (click)="openCreateModal()" class="admin-btn">New+</div>
+  </div>
+  <div class="w-layout-grid grid-3">
+    <div class="w-layout-grid table-header">
+      <div>#</div>
+      <div>Full name</div>
+    </div>
+    <div class="w-layout-grid grid-2" *ngFor="let author of authors">
+      <div><div>{{author.id}}</div></div>
+      <div><div class="text-block-7">{{author.fullName}}</div></div>
+      <div (click)="Delete(author.id)" class="admin-btn delete">Delete</div>
+      <div (click)="openEditModal(author)" class="admin-btn edit">Edit</div>
+    </div>
+  </div>
+</div>
+
