@@ -9,10 +9,13 @@ namespace ServicesInterfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<BookDto>> GetBooksByUserEmailAsync(string UserEmail);
-        Task<IEnumerable<BookDto>> AddFavoritBookAsync(string UserEmail);
-        Task<IEnumerable<BookDto>> AddLikedBookAsync(string UserEmail);
+        Task<bool> IsLikedBook(string userEmail, int bookId);
+        Task<bool> IsFavoriteBook(string userEmail, int bookId);
+        Task AddFavoritBookAsync(string UserEmail, int bookId);
+        Task AddLikedBookAsync(string UserEmail, int bookId);
         Task<IEnumerable<BookDto>> GetLikedBooksByEmailAsync(string UserEmail);
         Task<IEnumerable<BookDto>> GetFavoritBooksByEmailAsync(string UserEmail);
+        Task RemoveFavoritBookAsync(string userEmail, int bookId);
+        Task RemoveLikedBookAsync(string userEmail, int bookId);
     }
 }

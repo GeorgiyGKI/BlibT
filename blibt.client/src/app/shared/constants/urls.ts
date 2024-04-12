@@ -24,6 +24,13 @@ export const RND_BOOKS_FOR_BP = BOOKS_URL + 'rndBooks/';
 export const USER_LOGIN_URL = BASE_URL + '/api/authentication/login/';
 export const USER_REGISTER_URL = BASE_URL + '/api/authentication/';
 export const USER_FAVBOOKS_URL = BASE_URL + '/api/user/favBooks/';
+export const USER_LIKEDBOOKS_URL = BASE_URL + '/api/user/likedBooks/';
+export const USER_SETFAV_URL = BASE_URL + '/api/user/addFavorite/';
+export const USER_SETLIKE_URL = BASE_URL + '/api/user/addLike/';
+export const USER_ISLIKEDCHECK_URL = BASE_URL + '/api/user/isLiked/';
+export const USER_ISFAVORITECHECK_URL = BASE_URL + '/api/user/isFavotite/';
+export const USER_REMOVE_LIKE = BASE_URL + '/api/user/removeLikedBook/';
+export const USER_REMOVE_FAVORITE_URL = BASE_URL + '/api/user/removeFavoriteBook/';
 
 
 

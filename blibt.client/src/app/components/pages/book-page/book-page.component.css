@@ -1,0 +1,9 @@
+.isFavorite {
+  opacity: 1;
+  color: #dbb666;
+}
+
+.isLiked {
+    opacity: 1;
+    color: #ce0000;
+  }
