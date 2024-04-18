@@ -13,7 +13,6 @@
       <div>Likes</div>
       <div>Views</div>
       <div>Favorits</div>
-      <div>pages</div>
     </div>
     <div class="w-layout-grid grid-2" *ngFor="let book of books">
       <div><div>{{book.id}}</div></div>
@@ -22,7 +21,6 @@
       <div>{{book.likes}}</div>
       <div>{{book.views}}</div>
       <div>{{book.favorits}}</div>
-      <div>{{book.pages}}</div>
       <div (click)="Delete(book.id)" class="admin-btn delete">Delete</div>
       <div (click)="openEditModal(book)" data-w-id="ab7592de-ecd9-8fa5-48c3-6d461739b423" class="admin-btn edit">Edit</div>
       <div data-w-id="608ff1de-b2f3-012a-2799-9384739d540b" class="full-info-btn edit" (click)="openInfoModal(book)">fullInfo</div>

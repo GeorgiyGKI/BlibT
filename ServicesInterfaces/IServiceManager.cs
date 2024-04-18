@@ -2,6 +2,7 @@
 using Service.AuthorService;
 using Service.BookService;
 using Service.GenreService;
+using Services.ServiceInterfaces;
 using ServicesInterfaces;
 
 namespace Service.ServiceManager
@@ -13,5 +14,6 @@ namespace Service.ServiceManager
         IGenreService GenreService { get; }
         IAuthenticationService AuthenticationService { get; }
         IUserService UserService { get; }
+        ITransactionService TransactionService { get; }
     }
 }

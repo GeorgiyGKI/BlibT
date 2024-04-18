@@ -36,7 +36,8 @@ export class LoginPageComponent {
           alert('Authentication error. Please try again.');
           return;
         }
-        //добавь роутер на home-page
+        this.reloadPage();
+        window.location.href = '/';
       },
       error: (err: any) => {
         console.error(err);

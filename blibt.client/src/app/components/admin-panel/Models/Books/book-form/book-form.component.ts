@@ -74,4 +74,9 @@ export class BookFormComponent {
     this.book = new Book();
     this.modalService.closeModal();
   }
+
+  check(genre: Genre) {
+    let result = this.book.genres.some((g) => g.id === genre.id);
+    return result
+  }
 }

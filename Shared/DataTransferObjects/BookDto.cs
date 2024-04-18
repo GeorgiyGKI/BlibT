@@ -16,6 +16,7 @@ namespace Shared.DataTransferObject
         public int? Likes { get; set; } = 0;
         public int? Views { get; set; } = 0;
         public int? Favorits { get; set; } = 0;
+        public decimal? Price { get; set; }
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
     }

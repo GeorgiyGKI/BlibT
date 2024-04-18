@@ -12,6 +12,7 @@ namespace WebLibWebApi
             CreateMap<Author, AuthorDto>().ReverseMap();
             CreateMap<Book, BookDto>().ReverseMap();
             CreateMap<Genre, GenreDto>().ReverseMap();
+            CreateMap<Transaction, TransactionDto>().ReverseMap();
             CreateMap<AuthorizeDto, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))

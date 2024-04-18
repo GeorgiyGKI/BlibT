@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServicesInterfaces;
 using Shared.DataTransferObject;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,11 @@ namespace Services
             _repository = repository;
             _mapper = mapper;
         }
-       
+
         public async Task<IEnumerable<BookDto>> GetLikedBooksByEmailAsync(string userEmail)
         {
-
             var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookLikes, userEmail);
-           
+
             foreach (var userBook in user.UserBookLikes)
             {
                 var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
@@ -58,6 +58,31 @@ namespace Services
             return booksDto;
         }
 
+        public async Task<IEnumerable<BookDto>> GetBuyedBooksByEmailAsync(string userEmail)
+        {
+            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookBuyeds, userEmail);
+
+            foreach (var userBook in user.UserBookBuyeds)
+            {
+                var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                user.BuyedBooks.Add(book);
+            }
+
+            var booksDto = _mapper.Map<IEnumerable<BookDto>>(user.BuyedBooks);
+            return booksDto;
+        }
+
+        public async Task AddBuyedBooksAsync(string userEmail, List<BookDto> bookIds)
+        {
+            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookBuyeds, userEmail);
+
+            for (int i = 0; i < bookIds.Count; i++)
+            {
+                user.UserBookBuyeds.Add(new UserBookBuyed { BookId = (int)bookIds[i].Id });
+            }
+
+            await _repository.SaveAsync();
+        }
         public async Task AddLikedBookAsync(string userEmail, int bookId)
         {
             var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookLikes, userEmail);
@@ -114,6 +139,28 @@ namespace Services
             var isFounded = foundedBook != null;
 
             return isFounded;
+        }
+
+        public async Task AddMoney(string userEmail, decimal amount)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+            if (user != null)
+            {
+                user.Pocket += amount;
+            }
+
+            await _repository.SaveAsync();
+        }
+
+        public async Task RemoveMoney(string userEmail, decimal amount)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+            if (user != null)
+            {
+                user.Pocket -= amount;
+            }
+
+            await _repository.SaveAsync();
         }
 
         public async Task<User> GetUserWithNavigationPropertyAsync(Expression<Func<User, object>> navigationProperty, string userEmail)

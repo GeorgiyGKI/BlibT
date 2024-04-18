@@ -18,6 +18,7 @@ import { RESOURCES } from '../../../shared/constants/urls';
 export class HomeComponent {
   resoursesUrl: string = RESOURCES;
   books: Book[] = [];
+  sortedBooks: Book[] = [];
   selectedBook: Book = new Book();
   constructor(private authorService: AuthorService,
     activatedRoute: ActivatedRoute,
@@ -34,6 +35,8 @@ export class HomeComponent {
           book.genres = genres;
         }))
       });
+
+      this.sortedBooks = books;
     }));
   }
 
@@ -42,8 +45,15 @@ export class HomeComponent {
   }
 
   sortByLikes() {
-    this.books.sort((a, b) => a.likes - b.likes);
+    this.sortedBooks.sort((a, b) => b.likes - a.likes);
   }
+  sortByViews() {
+    this.sortedBooks.sort((a, b) => b.views - a.views);
+  }
+  sortByRnd() {
+    this.sortedBooks.sort(() => Math.random() - 0.5)
+  }
+ 
 }
 
 

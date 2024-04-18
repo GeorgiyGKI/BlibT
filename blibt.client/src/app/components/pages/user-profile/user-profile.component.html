@@ -12,6 +12,9 @@
           <a (click)="scrollToSection('#liked-books-sect')" class="div-block-59 w-inline-block">
             <div class="text-block-12">Liked books</div>
           </a>
+          <a (click)="scrollToSection('#buyed-books-sect')" class="div-block-59 w-inline-block">
+            <div class="text-block-12">Buyed books</div>
+          </a>
         </div>
         <div>
           <section id="profile-info-sect" class="profile-info-sect">
@@ -46,6 +49,15 @@
             <h2 id="w-node-e7f8ee6e-f7fd-653d-f197-88b229c02b8b-5f5b38f3" class="heading-6">Liked books</h2>
             <div class="div-block-48">
               <div (click)="goToAbout(book.id)" class="div-block-47" *ngFor="let book of likedBooks">
+                <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="">
+                <div class="text-block-10">{{book?.title}}</div>
+              </div>
+            </div>
+          </section>
+          <section id="buyed-books-sect" class="fav-books-sect">
+            <h2 id="w-node-e7f8ee6e-f7fd-653d-f197-88b229c02b8b-5f5b38f3" class="heading-6">Buyed books</h2>
+            <div class="div-block-48">
+              <div (click)="goToAbout(book.id)" class="div-block-47" *ngFor="let book of buyedBooks">
                 <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="">
                 <div class="text-block-10">{{book?.title}}</div>
               </div>

@@ -12,6 +12,8 @@ import { AuthGuard } from './shared/quards/authGuard';
 import { RoleGuard } from './shared/quards/roleGuard';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { BookPageComponent } from './components/pages/book-page/book-page.component';
+import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
+import { TransactionTableComponent } from './components/admin-panel/Models/Transactions/transaction-table/transaction-table.component';
 
 const routes: Routes = [
   {
@@ -26,13 +28,16 @@ const routes: Routes = [
       { path: 'books', component: DataTableComponent },
       { path: 'genres', component: GenreTableComponent },
       { path: 'authors', component: AuthorTableComponent },
+      { path: 'transactions', component: TransactionTableComponent },
     ],
     data: {
       role: 'Administrator'
     }
   },
   { path: 'profile', component: UserProfileComponent },
-  { path: 'about/:id', component: BookPageComponent }
+  { path: 'about/:id', component: BookPageComponent },
+  { path: 'cart', component: CartPageComponent }
+
 ];
 
 @NgModule({

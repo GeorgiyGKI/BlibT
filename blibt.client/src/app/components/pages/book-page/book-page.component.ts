@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Book } from '../../../shared/models/Book';
 import { BookService } from '../../../services/BookService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RESOURCES } from '../../../shared/constants/urls';
 import { UserService } from '../../../services/UserService';
 import { authService } from '../../../services/AuthService';
 import { User } from '../../../shared/models/User';
+import { CartService } from '../../../services/CartService';
 
 @Component({
   selector: 'app-book-page',
@@ -20,12 +21,26 @@ export class BookPageComponent {
   resoursesUrl: string = RESOURCES;
   isLiked: boolean = false;
   isFavorite: boolean = false;
+  isBuyed: boolean = false;
 
   constructor(private bookService: BookService,
     private route: ActivatedRoute,
     private userServce: UserService,
-    private authService: authService) {
+    private authService: authService,
+    private cartService: CartService,
+    private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
+
+    if (this.id != null) {
+      this.bookService.getBookById(Number(this.id)).subscribe(book => {
+        this.book = book;
+      });
+    }
+
+    this.bookService.getRndBooksForBookPage().subscribe(books => {
+      this.rndBooks = books;
+    });
+
     this.user = this.authService.userValue;
 
     this.userServce.isFavoriteBookForUser(this.user?.email, Number(this.id)).subscribe(isFavorite => {
@@ -35,19 +50,22 @@ export class BookPageComponent {
     this.userServce.isLikedBookForUser(this.user?.email, Number(this.id)).subscribe(isLiked => {
       this.isLiked = isLiked;
     });
+
+    this.userServce.getBuyedBooks(this.user?.email).subscribe(books => {
+      for (var i = 0; i < books.length; i++) {
+        if (books[i].id === this.book.id) {
+          this.isBuyed = true;
+        }
+      }
+    });
   }
 
-  ngOnInit(): void {
+  addToCart() {
+    this.cartService.addToCart(this.book);
+  }
 
-    if (this.id != null) {
-      this.bookService.getBookById(parseInt(this.id, 10)).subscribe(book => {
-        this.book = book;
-      });
-
-      this.bookService.getRndBooksForBookPage().subscribe(books => {
-        this.rndBooks = books;
-      });
-    }
+  goToAbout(id: number) {
+    this.router.navigate(['/about', id]);
   }
 
   addLike(bookId: number) {

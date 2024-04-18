@@ -11,7 +11,8 @@ export class Book {
   favorits: number = 0;
   authorName: string = '';
   productImageName: string = '';
-  ImageFile?: File; 
+  ImageFile?: File;
+  price: number = 10;
 
   authorId: number=0;
 }

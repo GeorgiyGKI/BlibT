@@ -1,0 +1,24 @@
+<section>
+  <div class="w-layout-blockcontainer w-container">
+    <div>
+      <h2 class="heading-for-cart">Your cart</h2>
+      <div class="div-block-64">
+        <div class="w-layout-grid grid-6">
+          <div id="w-node-_4bb5eac1-1434-301b-1a36-5bb32e2f2685-5f5b38ec" class="div-block-60" *ngFor="let cartItem of cartItems">
+            <svg (click)="removeItem(cartItem.id)" class="ikonik-wb58" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewbox="0 0 24 24" fill="none" app="ikonik">
+              <path class="path-axkwv" d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z" fill="currentColor" app="ikonik"></path>
+            </svg><img [src]="resoursesUrl + cartItem.book?.productImageName" loading="lazy" alt="" class="image-3">
+            <div class="div-block-61">
+              <div class="title-for-cart">{{cartItem.book?.title}}</div>
+              <div class="price">{{cartItem.book?.price}}$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div-block-63">
+        <div (click)="buy()"class="buy-btn">Buy all</div>
+        <div class="price">{{sum}} $</div>
+      </div>
+    </div>
+  </div>
+</section>

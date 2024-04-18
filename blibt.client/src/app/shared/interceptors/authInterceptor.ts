@@ -18,13 +18,13 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       });
 
-      //if (user.roles) {
-      //  request = request.clone({
-      //    setHeaders: {
-      //      Roles: user.roles
-      //    }
-      //  });
-      //}
+      if (user.roles) {
+        request = request.clone({
+          setHeaders: {
+            Roles: user.roles
+          }
+        });
+      }
     }
 
     return next.handle(request);

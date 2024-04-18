@@ -14,6 +14,8 @@ namespace BlibT.Server.Controllers
         private readonly IServiceManager _service;
         public UserController(IServiceManager service) => _service = service;
 
+
+
       
         [HttpGet("likedBooks/{email}")]
         [Authorize]
@@ -21,9 +23,17 @@ namespace BlibT.Server.Controllers
         {
             var books = await _service.UserService.GetLikedBooksByEmailAsync(email);
 
+            return books != null ? Ok(books) : NotFound();
+        }
+        [HttpGet("buyedBooks/{email}")]
+        [Authorize]
+        public async Task<IActionResult> GetBuyedBooks(string email)
+        {
+            var books = await _service.UserService.GetLikedBooksByEmailAsync(email);
 
             return books != null ? Ok(books) : NotFound();
         }
+
         [HttpGet("favBooks/{email}")]
         [Authorize]
         public async Task<IActionResult> GetFavoritBooks(string email)
@@ -33,6 +43,7 @@ namespace BlibT.Server.Controllers
 
             return books != null ? Ok(books) : NotFound();
         }
+
         [HttpPatch("addFavorite")]
         [Authorize]
         public async Task<IActionResult> AddFavoritBook([FromBody] UserBookDto userBook)
@@ -41,6 +52,7 @@ namespace BlibT.Server.Controllers
 
             return Ok();
         }
+
         [HttpPatch("addLike")]
         [Authorize]
         public async Task<IActionResult> AddLikedBook([FromBody] UserBookDto userBook)

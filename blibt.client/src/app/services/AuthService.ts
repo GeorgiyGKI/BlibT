@@ -27,7 +27,6 @@ export class authService {
   login(email: string, password: string) {
     return this.http.post<any>(USER_LOGIN_URL, { email, password })
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
         return user;
@@ -39,7 +38,6 @@ export class authService {
   }
 
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('user');
     this.userSubject.next(null);
   }

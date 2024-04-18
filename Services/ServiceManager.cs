@@ -4,11 +4,13 @@ using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Repository;
 using Service.AuthenticationService;
 using Service.AuthorService;
 using Service.BookService;
 using Service.GenreService;
 using Services;
+using Services.ServiceInterfaces;
 using ServicesInterfaces;
 
 namespace Service.ServiceManager
@@ -20,6 +22,7 @@ namespace Service.ServiceManager
         private readonly Lazy<IGenreService> _genreService;
         private readonly Lazy<IAuthenticationService> _authenticationService;
         private readonly Lazy<IUserService> _userService;
+        private readonly Lazy<ITransactionService> _transactionService;
 
         public ServiceManager(IRepositoryManager repositoryManager,
             ILoggerManager logger,
@@ -33,6 +36,7 @@ namespace Service.ServiceManager
             _genreService = new Lazy<IGenreService>(() => new GenreService.GenreService(repositoryManager, logger, mapper));
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService.AuthenticationService(logger, mapper, UserManager, RoleManager, configuration));
             _userService = new Lazy<IUserService>(() => new UserService(UserManager, repositoryManager, mapper));
+            _transactionService = new Lazy<ITransactionService>(() => new TransactionService(repositoryManager, logger, mapper));
         }
 
         public IAuthorService AuthorService => _authorService.Value;
@@ -40,5 +44,6 @@ namespace Service.ServiceManager
         public IGenreService GenreService => _genreService.Value;
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
         public IUserService UserService => _userService.Value;
+        public ITransactionService TransactionService => _transactionService.Value;
     }
 }

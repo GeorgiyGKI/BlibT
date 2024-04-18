@@ -24,20 +24,22 @@ namespace Repository.Configuration
         {
             var userCheck = await _userManager.FindByEmailAsync("admin@test.com") == null;
             if (userCheck)
-            { 
+            {
                 var admin = new User()
                 {
                     UserName = "Admin",
                     Email = "admin@test.com",
-                    
+                    Pocket = 1000
                 };
 
                 var moderator = new User()
                 {
                     UserName = "moderator",
                     Email = "moderator@test.com",
-
+                    Pocket = 1000
                 };
+
+
                 await _userManager.CreateAsync(admin, "TheAdm1n");
                 await _userManager.CreateAsync(moderator, "TheM0derator");
 

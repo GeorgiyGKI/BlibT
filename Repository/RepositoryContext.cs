@@ -17,24 +17,36 @@ namespace Repository
 
             modelBuilder.Entity<BookGenre>()
                 .HasKey(bc => new { bc.BookId, bc.GenreId });
+
             modelBuilder.Entity<BookGenre>()
                 .HasOne(bc => bc.Book)
                 .WithMany(b => b.BookGenres)
                 .HasForeignKey(bc => bc.BookId);
+
             modelBuilder.Entity<BookGenre>()
                 .HasOne(bc => bc.Genre)
                 .WithMany(c => c.BookGenres)
                 .HasForeignKey(bc => bc.GenreId);
 
             modelBuilder.Entity<User>()
-        .HasMany(e => e.LikedBooks)
-        .WithMany(e => e.Users)
-        .UsingEntity<UserBookLike>();
+                .HasMany(e => e.LikedBooks)
+                .WithMany(e => e.Users)
+                .UsingEntity<UserBookLike>();
 
             modelBuilder.Entity<User>()
-        .HasMany(e => e.FavoriteBooks)
-        .WithMany(e => e.Users)
-        .UsingEntity<UserBookFavorite>();
+                .HasMany(e => e.FavoriteBooks)
+                .WithMany(e => e.Users)
+                .UsingEntity<UserBookFavorite>();
+
+            modelBuilder.Entity<User>()
+               .HasMany(b => b.BuyedBooks)
+               .WithMany(u => u.Users)
+               .UsingEntity<UserBookBuyed>();
+
+            modelBuilder.Entity<Transaction>()
+                .HasMany(b => b.Books)
+                .WithMany(t => t.Transactions)
+                .UsingEntity<BookTransaction>();
 
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
@@ -47,5 +59,6 @@ namespace Repository
         public DbSet<Book> Books { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BookGenre> BookGenres { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

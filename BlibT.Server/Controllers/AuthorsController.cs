@@ -15,7 +15,6 @@ namespace WebLibWebApi.Controllers
         public AuthorsController(IServiceManager service) => _service = service ?? throw new ArgumentNullException(nameof(service));
 
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetAuthors()
         {
             var authors = await _service.AuthorService.GetAllAuthorsAsync(trackChanges: false);
@@ -23,7 +22,6 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpGet("{id:int}", Name = "AuthorById")]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetAuthor(int id)
         {
             var author = await _service.AuthorService.GetAuthorAsync(id, trackChanges: false);

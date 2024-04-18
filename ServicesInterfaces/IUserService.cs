@@ -17,5 +17,9 @@ namespace ServicesInterfaces
         Task<IEnumerable<BookDto>> GetFavoritBooksByEmailAsync(string UserEmail);
         Task RemoveFavoritBookAsync(string userEmail, int bookId);
         Task RemoveLikedBookAsync(string userEmail, int bookId);
+        Task AddMoney(string userEmail, decimal amount);
+        Task RemoveMoney(string userEmail, decimal amount);
+        Task AddBuyedBooksAsync(string userEmail, List<BookDto> bookIds);
+        Task<IEnumerable<BookDto>> GetBuyedBooksByEmailAsync(string userEmail);
     }
 }

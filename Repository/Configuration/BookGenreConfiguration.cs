@@ -13,38 +13,16 @@ namespace Repository.Configuration
     {
         public void Configure(EntityTypeBuilder<BookGenre> builder)
         {
-            builder.HasData(
-               new BookGenre
-               {
-                   BookId = 1,
-                   GenreId = 1,
-               },
-               new BookGenre
-               {
-                   BookId = 1,
-                   GenreId = 2,
-               },
-               new BookGenre
-               {
-                   BookId = 1,
-                   GenreId = 3,
-               },
-               new BookGenre
-               {
-                   BookId = 2,
-                   GenreId = 3,
-               },
-               new BookGenre
-               {
-                   BookId = 2,
-                   GenreId = 4,
-               },
-                 new BookGenre
-                 {
-                     BookId = 2,
-                     GenreId = 5,
-                 }
-               );
+            Random rnd = new Random();
+
+            var BookGenreList = new List<BookGenre>();
+            for (int i = 1; i <= 20; i++)
+            {
+                BookGenreList.Add(new BookGenre { BookId = i, GenreId = rnd.Next(1, 10) });
+            }
+
+            builder.HasData(BookGenreList);
+
         }
     }
 }

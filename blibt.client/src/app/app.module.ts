@@ -25,6 +25,8 @@ import { AuthorTableComponent } from './components/admin-panel/Models/Authors/au
 import { AuthorFormComponent } from './components/admin-panel/Models/Authors/author-form/author-form.component';
 import { JwtInterceptor } from './shared/interceptors/authInterceptor';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
+import { TransactionTableComponent } from './components/admin-panel/Models/Transactions/transaction-table/transaction-table.component';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
     AuthorTableComponent,
     AuthorFormComponent,
     UserProfileComponent,
+    CartPageComponent,
+    TransactionTableComponent,
   ],
   imports: [
     BrowserModule,

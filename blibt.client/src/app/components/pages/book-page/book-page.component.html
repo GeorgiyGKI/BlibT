@@ -3,7 +3,10 @@
     <div class="div-block-49">
       <div class="div-block-50">
         <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" class="image-2" />
-        <div class="text-block-11">Download</div>
+        <div *ngIf="isBuyed === false"
+             (click)="addToCart()" class="text-block-11">Add to cart</div>
+        <div *ngIf="isBuyed === true"
+             (click)="addToCart()" class="text-block-11">Download</div>
         <div class="div-block-51">
           <svg (click)="addLike(book.id)" class="svg-icon heart" [class.isLiked]="isLiked" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
             <g id="Layer_2" data-name="Layer 2">
@@ -15,7 +18,7 @@
               </g>
             </g>
           </svg>
-          <svg  (click)="addFav(book.id)" class="svg-icon favorite" [class.isFavorite]="isFavorite" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+          <svg (click)="addFav(book.id)" class="svg-icon favorite" [class.isFavorite]="isFavorite" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
             <g id="Layer_2" data-name="Layer 2">
               <g id="star">
                 <g id="star-2" data-name="star">
@@ -43,7 +46,8 @@
     <div class="div-block-54">
       <p class="paragraph-2">See also:</p>
       <div class="w-layout-grid grid-4">
-        <div class="div-block-55" *ngFor="let rndBook of rndBooks">
+       
+        <div (click)="goToAbout(book.id)" class="div-block-55" *ngFor="let rndBook of rndBooks">
           <img [src]="resoursesUrl + rndBook.productImageName" loading="lazy" id="w-node-b4b3ba37-a937-1b5f-cd43-8a9c3503c470-5f5b38f4" alt="" class="image-2" />
           <div>{{rndBook.title}}</div>
         </div>

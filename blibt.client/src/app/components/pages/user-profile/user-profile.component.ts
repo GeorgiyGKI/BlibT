@@ -16,6 +16,7 @@ export class UserProfileComponent {
   user: User | null;
   likedBooks: Book[] | undefined;
   favBooks: Book[] | undefined;
+  buyedBooks: Book[] | undefined;
 
   resoursesUrl: string = RESOURCES;
 
@@ -34,6 +35,12 @@ export class UserProfileComponent {
     this.userService.getLikedBooks(this.user?.email).subscribe((books => {
       if (this.user != null) {
         this.likedBooks = books;
+      }
+    }));
+
+    this.userService.getBuyedBooks(this.user?.email).subscribe((books => {
+      if (this.user != null) {
+        this.buyedBooks = books;
       }
     }));
     }
