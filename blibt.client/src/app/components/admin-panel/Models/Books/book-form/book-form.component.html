@@ -1,14 +1,14 @@
 <div [ngStyle]="{ 'display': modalService.modalFormVisible ? 'flex' : 'none' }"
      class="modalwrapper">
   <div class="modalform">
-    <h1 class="heading">Book Create</h1>
+    <h1 class="heading">Book form </h1>
     <div class="form-block w-form">
       <form id="email-form" name="email-form" class="form"
             (ngSubmit)="onFormSubmit()" [formGroup]="bookForm">
         <div class="div-block-38">
           <div class="div-block-41">
             <label for="name-3" class="field-label">Name</label>
-            <input [(ngModel)]="book.title" class="text-field w-input"  type="text" formControlName="title" NgModal>
+            <input [(ngModel)]="book.title" class="text-field w-input" type="text" formControlName="title" NgModal>
             <div *ngIf="bookForm.get('title')?.invalid &&  bookForm.get('title')?.touched">
               <div class="text-danger">Title is required</div>
               <div class="text-danger">Title can't exceed 256 characters</div>
@@ -24,10 +24,12 @@
             </div>
           </div>
         </div>
+        <label for="name-3" class="field-label">Price</label>
+        <input [(ngModel)]="book.price" class="text-field w-input" type="number" formControlName="price" NgModal>
         <label for="field-5" class="field-label">Description</label>
         <textarea placeholder="Example Text" id="field-3" name="field-3" data-name="Field 3" class="textarea w-input" formControlName="description" NgModal [(ngModel)]="book.description"></textarea>
         <div class="div-block-37">
-          <mat-selection-list [@.disabled]="true"  class="list-3" formControlName="genres">
+          <mat-selection-list [@.disabled]="true" class="list-3" formControlName="genresIds">
             <mat-list-option *ngFor="let genre of genres" [value]="genre.id" [@.disabled]="true" [selected]="check(genre)">
               {{ genre.name }}
             </mat-list-option>

@@ -23,14 +23,14 @@ export class UserService {
 
   setLike(email: string | undefined, bookId: number) {
     let data = {
-      email: email,
+      userEmail: email,
       bookId: bookId
     }
     return this.http.patch(USER_SETLIKE_URL, data);
   }
   setFav(email: string | undefined, bookId: number){
     let data = {
-      email: email,
+      userEmail: email,
       bookId: bookId
     }
     return this.http.patch(USER_SETFAV_URL, data);
@@ -54,7 +54,7 @@ export class UserService {
 
   removeLike(email: string | undefined, bookId: number) {
     let data = {
-      email: email,
+      userEmail: email,
       bookId: bookId
     }
 
@@ -62,7 +62,7 @@ export class UserService {
   }
   removeFav(email: string | undefined, bookId: number) {
     let data = {
-      email: email,
+      userEmail: email,
       bookId: bookId
     }
 

@@ -3,7 +3,9 @@ using Contracts;
 using Entities.Exceptions;
 using Entities.Models;
 using LoggerService;
+using Microsoft.AspNetCore.Identity;
 using Shared.DataTransferObject;
+using System.Linq.Expressions;
 
 namespace Service.BookService
 {
@@ -39,14 +41,14 @@ namespace Service.BookService
         }
 
 
-        public async Task<BookDto> CreateBookAsync(BookDto book)
+        public async Task<BookDto> CreateBookAsync(BookDto bookDto)
         {
             var bookGenres = new List<BookGenre>();
-            foreach (var genreId in book.GenresId)
+            foreach (var genreId in bookDto.GenresIds)
             {
                 bookGenres.Add(new BookGenre { GenreId = int.Parse(genreId) });
             };
-            var bookEntity = _mapper.Map<Book>(book);
+            var bookEntity = _mapper.Map<Book>(bookDto);
             bookEntity.BookGenres = bookGenres;
 
             _repository.Book.CreateBook(bookEntity);
@@ -69,8 +71,16 @@ namespace Service.BookService
         {
             var bookEntity = await _repository.Book.GetBookAsync(id, trackChanges) ?? throw new BookNotFoundException(id);
 
+            var bookGenres = new List<BookGenre>();
+            foreach (var genreId in bookForUpdate.GenresIds)
+            {
+                bookGenres.Add(new BookGenre { BookId = id, GenreId = int.Parse(genreId) });
+            };
+
             _mapper.Map(bookForUpdate, bookEntity);
             bookEntity.Id = id;
+            bookEntity.BookGenres = bookGenres;
+
             await _repository.SaveAsync();
         }
 
@@ -89,5 +99,6 @@ namespace Service.BookService
 
             return booksDto;
         }
+
     }
 }

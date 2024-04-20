@@ -2,17 +2,19 @@ import { Genre } from "./Genre";
 
 export class Book {
   id: number = 0;
-  pages: Array<string> = [];
+  authorId: number=0;
   title: string = '';
-  genres: Array<Genre> = [];
+  productImageName: string = '';
+  genresIds: Array<string> = [];;
   description: string = '';
   likes: number = 0;
   views: number = 0;
   favorits: number = 0;
-  authorName: string = '';
-  productImageName: string = '';
+  price: number = 0
   ImageFile?: File;
-  price: number = 10;
 
-  authorId: number=0;
+
+  genres: Array<Genre> = [];
+  authorName: string = '';
+
 }

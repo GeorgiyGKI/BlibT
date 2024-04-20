@@ -8,7 +8,7 @@ namespace Shared.DataTransferObjects
 {
     public class UserBookDto
     {
-        public string Email { get; set; }
+        public string UserEmail { get; set; }
         public int BookId { get; set; }
     }
 }

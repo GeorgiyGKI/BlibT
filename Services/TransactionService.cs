@@ -35,6 +35,7 @@ namespace Services
             foreach (var buyedBookDto in transactionDto.Books)
                 transaction.BookTransactions.Add(new BookTransaction { BookId = (int)buyedBookDto.Id });
 
+            transaction.DateTime = DateTime.Now;
             _repository.Transaction.CreateTransaction(transaction);
             await _repository.SaveAsync();
         }

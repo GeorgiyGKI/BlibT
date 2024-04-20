@@ -4,13 +4,14 @@
   </div>
   <div class="w-layout-grid grid-3">
     <div class="w-layout-grid table-header">
-      <div>#</div>
-      <div>Name</div>
+      <div>User email</div>
+      <div>Sum</div>
+      <div>Date</div>
     </div>
     <div class="w-layout-grid grid-2" *ngFor="let transaction of transactions">
       <div class="text-block-7">{{transaction.userEmail}}</div>
-      <div class="text-block-7">{{transaction.books?.length}}</div>
       <div class="text-block-7">{{transaction.sum}}</div>
+      <div class="text-block-7">{{transaction.dateTime | date : 'short'}}</div>
     </div>
   </div>
 </div>

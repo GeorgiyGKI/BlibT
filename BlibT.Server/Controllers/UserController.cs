@@ -29,7 +29,7 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> GetBuyedBooks(string email)
         {
-            var books = await _service.UserService.GetLikedBooksByEmailAsync(email);
+            var books = await _service.UserService.GetBuyedBooksByEmailAsync(email);
 
             return books != null ? Ok(books) : NotFound();
         }
@@ -48,7 +48,12 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> AddFavoritBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.AddFavoritBookAsync(userBook.Email, userBook.BookId);
+            await _service.UserService.AddFavoritBookAsync(userBook.UserEmail, userBook.BookId);
+
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            ++book.Favorits;
+
+            await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
 
             return Ok();
         }
@@ -57,7 +62,12 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> AddLikedBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.AddLikedBookAsync(userBook.Email, userBook.BookId);
+            await _service.UserService.AddLikedBookAsync(userBook.UserEmail, userBook.BookId);
+
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            ++book.Likes;
+
+            await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
 
             return Ok();
         }
@@ -67,7 +77,7 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> isLiked([FromBody] UserBookDto userBook)
         {
-            var isLiked = await _service.UserService.IsLikedBook(userBook.Email, userBook.BookId);
+            var isLiked = await _service.UserService.IsLikedBook(userBook.UserEmail, userBook.BookId);
 
             return Ok(isLiked);
         }
@@ -76,7 +86,7 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> isFavoriteBook([FromBody] UserBookDto userBook)
         {
-            var isFavotite = await _service.UserService.IsFavoriteBook(userBook.Email, userBook.BookId);
+            var isFavotite = await _service.UserService.IsFavoriteBook(userBook.UserEmail, userBook.BookId);
 
             return Ok(isFavotite);
         }
@@ -85,7 +95,12 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> removeFavoriteBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.RemoveFavoritBookAsync(userBook.Email, userBook.BookId);
+            await _service.UserService.RemoveFavoritBookAsync(userBook.UserEmail, userBook.BookId);
+
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            --book.Likes;
+
+            await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
 
             return Ok();
         }
@@ -93,7 +108,12 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> removeLikedBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.RemoveLikedBookAsync(userBook.Email, userBook.BookId);
+            await _service.UserService.RemoveLikedBookAsync(userBook.UserEmail, userBook.BookId);
+
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            --book.Likes;
+
+            await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
 
             return Ok();
         }

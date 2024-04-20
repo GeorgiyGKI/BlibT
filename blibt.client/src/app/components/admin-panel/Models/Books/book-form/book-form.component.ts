@@ -35,7 +35,8 @@ export class BookFormComponent {
       title: ['', Validators.compose([Validators.required, Validators.maxLength(256)])],
       description: ['', Validators.maxLength(2560)],
       authorId: [0, Validators.required],
-      genres: [],
+      genresIds: [],
+      price: [0, Validators.required]
     });
   }
 
@@ -47,6 +48,10 @@ export class BookFormComponent {
     const frmData: Book = Object.assign(this.bookForm.value);
     frmData.ImageFile = this.imageFile;
     if (this.book.id != 0) {
+      frmData.productImageName = this.book.productImageName
+      frmData.likes = this.book.likes;
+      frmData.views = this.book.views;
+      frmData.favorits = this.book.favorits;
       this.bookService.updateBook(this.book.id, frmData).subscribe({
         next: (val: any) => {
           console.log(val)

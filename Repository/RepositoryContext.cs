@@ -60,5 +60,6 @@ namespace Repository
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BookGenre> BookGenres { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+
     }
 }

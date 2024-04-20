@@ -24,23 +24,31 @@ export class BookService {
     let formData = new FormData();
 
     formData.append("title", data.title);
-    formData.append("imageFile", data.ImageFile ?? "");
     formData.append("authorId", data.authorId.toString());
     formData.append("description", data.description);
-    data.genres.forEach(genreId => { formData.append("genresId", genreId.toString()); });
+    formData.append("price", data.price.toString());
+    formData.append("imageFile", data.ImageFile ?? "");
 
-    return this.http.post<Book>(BOOKS_URL, formData);
+    data.genresIds.forEach(genreId => { formData.append("genresIds", genreId.toString()); });
+
+    return this.http.post(BOOKS_URL, formData);
   }
-  updateBook(id: number, data: Book): Observable<Book> {
+  updateBook(id: number, data: Book) {
     let formData = new FormData();
+    let bool = data.ImageFile != undefined 
+    bool ? formData.append("imageFile", data.ImageFile ?? "")
+      : formData.append("productImageName", data.productImageName);
 
     formData.append("title", data.title);
-    formData.append("imageFile", data.ImageFile ?? "");
     formData.append("authorId", data.authorId.toString());
     formData.append("description", data.description);
-    data.genres.forEach(genreId => { formData.append("genresId", genreId.toString()); });
+    formData.append("price", data.price.toString());
+    formData.append("likes", data.likes.toString());
+    formData.append("views", data.views.toString());
+    formData.append("favorits", data.favorits.toString());
+    data.genresIds.forEach(genreId => { formData.append("genresIds", genreId.toString()); });
 
-    return this.http.put<Book>(BOOKS_URL + id, formData);
+    return this.http.put(BOOKS_URL + id, formData);
   }
   deleteBook(id: number): Observable<Book> {
     return this.http.delete<Book>(BOOKS_URL + id);

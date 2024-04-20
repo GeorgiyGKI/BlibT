@@ -12,5 +12,6 @@ namespace Shared.DataTransferObjects
         public IEnumerable<BookDto>? Books { get; set; }
         public string? UserEmail { get; set; }
         public int? Sum { get; set; }
+        public DateTime? DateTime { get; set; }
     }
 }

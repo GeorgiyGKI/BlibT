@@ -16,7 +16,7 @@ export class GenreFormComponent {
     public modalService: ModalService,
     private genreService: GenreService) {
     this.GenreForm = this.fb.group({
-      name: ['', Validators.compose([Validators.required, Validators.maxLength(256)])]
+      //name: ['', Validators.compose([Validators.required, Validators.maxLength(256)])]
     });
   }
 

@@ -54,7 +54,7 @@ namespace WebLibWebApi.Controllers
 
         [HttpPost]
         //[ServiceFilter(typeof(ValidationFilterAttribute))]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateBook([FromForm] BookDto book)
         {
             var fileName = await _fileService.SaveImageAsync(book.ImageFile);
@@ -81,10 +81,11 @@ namespace WebLibWebApi.Controllers
         //[Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> UpdateBook(int id, [FromForm] BookDto book)
         {
-            var fileName = await _fileService.SaveImageAsync(book.ImageFile);
-            book.ProductImageName = fileName;
-
-
+            if (book.ImageFile != null )
+            {
+                var fileName = await _fileService.SaveImageAsync(book.ImageFile);
+                book.ProductImageName = fileName;
+            }
 
             await _service.BookService.UpdateBookAsync(id, book, trackChanges: true);
 
