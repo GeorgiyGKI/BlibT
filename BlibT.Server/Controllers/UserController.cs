@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.ServiceManager;
+using Shared.DataTransferObject;
 using Shared.DataTransferObjects;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,7 +22,7 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> GetLikedBooks(string email)
         {
-            var books = await _service.UserService.GetLikedBooksByEmailAsync(email);
+            var books = await _service.UserService.GetUserBooksByTypeAsync(email, "UserBookLike");
 
             return books != null ? Ok(books) : NotFound();
         }
@@ -29,16 +30,16 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> GetBuyedBooks(string email)
         {
-            var books = await _service.UserService.GetBuyedBooksByEmailAsync(email);
+            var books = await _service.UserService.GetUserBooksByTypeAsync(email, "UserBookBuyed");
 
             return books != null ? Ok(books) : NotFound();
         }
 
         [HttpGet("favBooks/{email}")]
         [Authorize]
-        public async Task<IActionResult> GetFavoritBooks(string email)
+        public async Task<IActionResult> GetFavoriteBooks(string email)
         {
-            var books = await _service.UserService.GetFavoritBooksByEmailAsync(email);
+            var books = await _service.UserService.GetUserBooksByTypeAsync(email, "UserBookFavorite");
 
 
             return books != null ? Ok(books) : NotFound();
@@ -46,9 +47,11 @@ namespace BlibT.Server.Controllers
 
         [HttpPatch("addFavorite")]
         [Authorize]
-        public async Task<IActionResult> AddFavoritBook([FromBody] UserBookDto userBook)
+        public async Task<IActionResult> AddFavoriteBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.AddFavoritBookAsync(userBook.UserEmail, userBook.BookId);
+            var param = new List<BookDto> { new BookDto { Id = userBook.BookId } };
+
+            await _service.UserService.AddBooksByTypeAsync(userBook.UserEmail, param, "UserBookFavorite");
 
             var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
             ++book.Favorits;
@@ -62,7 +65,10 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> AddLikedBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.AddLikedBookAsync(userBook.UserEmail, userBook.BookId);
+
+            var param = new List<BookDto> { new BookDto { Id = userBook.BookId } };
+
+            await _service.UserService.AddBooksByTypeAsync(userBook.UserEmail, param , "UserBookLike");
 
             var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
             ++book.Likes;
@@ -95,7 +101,7 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> removeFavoriteBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.RemoveFavoritBookAsync(userBook.UserEmail, userBook.BookId);
+            await _service.UserService.RemoveBookByTypeAsync(userBook.UserEmail, userBook.BookId, "UserBookFavorite");
 
             var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
             --book.Likes;
@@ -108,7 +114,7 @@ namespace BlibT.Server.Controllers
         [Authorize]
         public async Task<IActionResult> removeLikedBook([FromBody] UserBookDto userBook)
         {
-            await _service.UserService.RemoveLikedBookAsync(userBook.UserEmail, userBook.BookId);
+            await _service.UserService.RemoveBookByTypeAsync(userBook.UserEmail, userBook.BookId, "UserBookLike");
 
             var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
             --book.Likes;

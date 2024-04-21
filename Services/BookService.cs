@@ -70,16 +70,18 @@ namespace Service.BookService
         public async Task UpdateBookAsync(int id, BookDto bookForUpdate, bool trackChanges)
         {
             var bookEntity = await _repository.Book.GetBookAsync(id, trackChanges) ?? throw new BookNotFoundException(id);
-
-            var bookGenres = new List<BookGenre>();
-            foreach (var genreId in bookForUpdate.GenresIds)
+            if (bookForUpdate.GenresIds != null)
             {
-                bookGenres.Add(new BookGenre { BookId = id, GenreId = int.Parse(genreId) });
-            };
+                bookEntity.BookGenres.Clear();
+
+                foreach (var genreId in bookForUpdate.GenresIds)
+                {
+                    bookEntity.BookGenres.Add(new BookGenre { GenreId = int.Parse(genreId) });
+                };
+            }
 
             _mapper.Map(bookForUpdate, bookEntity);
             bookEntity.Id = id;
-            bookEntity.BookGenres = bookGenres;
 
             await _repository.SaveAsync();
         }

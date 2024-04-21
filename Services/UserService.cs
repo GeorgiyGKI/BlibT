@@ -30,101 +30,85 @@ namespace Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<BookDto>> GetLikedBooksByEmailAsync(string userEmail)
+
+
+        /// 
+        /// !!!
+        /// ПОМЕНЯТЬ STRING TYPE НА СЛОВАРЬ (возможно)
+        /// !!!
+        /// 
+
+        public async Task<IEnumerable<BookDto>> GetUserBooksByTypeAsync(string userEmail, string type)
         {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookLikes, userEmail);
+            var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
-            foreach (var userBook in user.UserBookLikes)
+            switch (type)
             {
-                var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
-                user.LikedBooks.Add(book);
-            }
+                case "UserBookBuyed":
+                    return _mapper.Map<IEnumerable<BookDto>>(user.UserBookBuyeds);
 
-            var booksDto = _mapper.Map<IEnumerable<BookDto>>(user.LikedBooks);
-            return booksDto;
+                case "UserBookLike":
+                    return _mapper.Map<IEnumerable<BookDto>>(user.UserBookLikes);
+
+                case "UserBookFavorite":
+                    return _mapper.Map<IEnumerable<BookDto>>(user.UserBookFavorites);
+
+                default:
+                    return null;
+            }
         }
 
-        public async Task<IEnumerable<BookDto>> GetFavoritBooksByEmailAsync(string userEmail)
+        public async Task AddBooksByTypeAsync(string userEmail, List<BookDto> bookIds, string type)
         {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookFavorites, userEmail);
+            var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
-            foreach (var userBookFavorite in user.UserBookFavorites)
+            switch (type)
             {
-                var book = await _repository.Book.GetBookAsync(userBookFavorite.BookId, false);
-                user.FavoriteBooks.Add(book);
-            }
+                case "UserBookBuyed":
+                    foreach (var bookId in bookIds)
+                        user.UserBookBuyeds.Add(new UserBookBuyed { BookId = (int)bookId.Id });
+                    break;
 
-            var booksDto = _mapper.Map<IEnumerable<BookDto>>(user.FavoriteBooks);
-            return booksDto;
-        }
+                case "UserBookLike":
+                    foreach (var bookId in bookIds)
+                        user.UserBookLikes.Add(new UserBookLike { BookId = (int)bookId.Id });
+                    break;
 
-        public async Task<IEnumerable<BookDto>> GetBuyedBooksByEmailAsync(string userEmail)
-        {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookBuyeds, userEmail);
-
-            foreach (var userBook in user.UserBookBuyeds)
-            {
-                var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
-                user.BuyedBooks.Add(book);
-            }
-
-            var booksDto = _mapper.Map<IEnumerable<BookDto>>(user.BuyedBooks);
-            return booksDto;
-        }
-
-        public async Task AddBuyedBooksAsync(string userEmail, List<BookDto> bookIds)
-        {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookBuyeds, userEmail);
-
-            for (int i = 0; i < bookIds.Count; i++)
-            {
-                user.UserBookBuyeds.Add(new UserBookBuyed { BookId = (int)bookIds[i].Id });
+                case "UserBookFavorite":
+                    foreach (var bookId in bookIds)
+                        user.UserBookFavorites.Add(new UserBookFavorite { BookId = (int)bookId.Id });
+                    break;
             }
 
             await _repository.SaveAsync();
         }
-        public async Task AddLikedBookAsync(string userEmail, int bookId)
+
+
+        public async Task RemoveBookByTypeAsync(string userEmail, int bookId, string type)
         {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookLikes, userEmail);
+            var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
-            user.UserBookLikes.Add(new UserBookLike { BookId = bookId });
+            switch (type)
+            {
+                case "UserBookLike":
+                    var likedBook = user.UserBookLikes.FirstOrDefault(x => x.BookId == bookId);
+                    user.UserBookLikes.Remove(likedBook);
 
 
-            await _repository.SaveAsync();
-        }
+                    break;
+                case "UserBookFavorite":
+                    var favoriteBook = user.UserBookFavorites.FirstOrDefault(x => x.BookId == bookId);
+                    user.UserBookFavorites.Remove(favoriteBook);
 
-        public async Task AddFavoritBookAsync(string userEmail, int bookId)
-        {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookFavorites, userEmail);
-
-            user.UserBookFavorites.Add(new UserBookFavorite { BookId = bookId });
-
-            await _repository.SaveAsync();
-        }
-
-        public async Task RemoveLikedBookAsync(string userEmail, int bookId)
-        {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookLikes, userEmail);
-
-            var book = user.UserBookLikes.FirstOrDefault(x => x.BookId == bookId);
-            user.UserBookLikes.Remove(book);
-
-            await _repository.SaveAsync();
-        }
-
-        public async Task RemoveFavoritBookAsync(string userEmail, int bookId)
-        {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookFavorites, userEmail);
-
-            var book = user.UserBookFavorites.FirstOrDefault(x => x.BookId == bookId);
-            user.UserBookFavorites.Remove(book);
+                    break;
+            }
 
             await _repository.SaveAsync();
         }
 
         public async Task<bool> IsLikedBook(string userEmail, int bookId)
         {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookLikes, userEmail);
+            var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
             var foundedBook = user.UserBookLikes.First(b => b.BookId == bookId);
             var isFounded = foundedBook != null;
@@ -134,7 +118,7 @@ namespace Services
 
         public async Task<bool> IsFavoriteBook(string userEmail, int bookId)
         {
-            var user = await GetUserWithNavigationPropertyAsync(u => u.UserBookFavorites, userEmail);
+            var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
             var foundedBook = user.UserBookFavorites.First(b => b.BookId == bookId);
             var isFounded = foundedBook != null;
@@ -164,11 +148,12 @@ namespace Services
             await _repository.SaveAsync();
         }
 
-        public async Task<User> GetUserWithNavigationPropertyAsync(Expression<Func<User, object>> navigationProperty, string userEmail)
+        public async Task<User> GetUserWithManyToManyTablesAsync(string userEmail)
         {
-            var user = await _userManager.Users
-                .Include(navigationProperty)
-                .FirstOrDefaultAsync(u => u.Email == userEmail);
+            var user = await _userManager.Users.Include(u => u.UserBookFavorites)
+                                               .Include(u => u.UserBookBuyeds)
+                                               .Include(u => u.UserBookLikes)
+                                               .FirstOrDefaultAsync(u => u.Email == userEmail);
 
             return user;
         }

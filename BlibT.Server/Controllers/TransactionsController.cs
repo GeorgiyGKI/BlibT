@@ -32,7 +32,7 @@ namespace BlibT.Server.Controllers
             {
                 await _service.TransactionService.CreateTransactionAsync(transactionDto);
                 await _service.UserService.RemoveMoney(transactionDto.UserEmail, (decimal)transactionDto.Sum);
-                await _service.UserService.AddBuyedBooksAsync(transactionDto.UserEmail, (List<BookDto>)transactionDto.Books);
+                await _service.UserService.AddBooksByTypeAsync(transactionDto.UserEmail, (List<BookDto>)transactionDto.Books, "UserBookBuyed");
 
                 return NoContent();
             }

@@ -10,14 +10,15 @@ namespace Repository.RepositoryModels.BookRepository
         }
 
         public async Task<Book> GetBookAsync(int bookId, bool trackChanges) =>
-               await FindByCondition(Entity => Entity.Id.Equals(bookId), trackChanges).SingleOrDefaultAsync();
+               await FindByCondition(Entity => Entity.Id.Equals(bookId), trackChanges).Include(p => p.BookGenres)
+                            .FirstOrDefaultAsync();
 
         public void CreateBook(Book book) => Create(book);
 
         public void DeleteBook(Book book) => Delete(book);
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync(bool trackChanges) =>
-               await FindAll(trackChanges).ToListAsync();
+               await FindAll(trackChanges).Include(p => p.BookGenres).ToListAsync();
 
         public async Task<IEnumerable<Book>> GetBooksByGenreIdAsync(int genreId, bool trackChanges)
         {

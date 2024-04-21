@@ -10,7 +10,6 @@ namespace Entities.Models
     {
         public int BookId { get; set; }
         public Book Book { get; set; }
-
         public int TransactionId { get; set; }
         public Transaction Transaction { get; set; }
     }
