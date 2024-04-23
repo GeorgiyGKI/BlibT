@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Book } from "../shared/models/Book";
 import { Observable } from "rxjs";
-import { USER_FAVBOOKS_URL, USER_GET_BUYED_BOOKS_URL, USER_ISFAVORITECHECK_URL, USER_ISLIKEDCHECK_URL, USER_LIKEDBOOKS_URL, USER_REMOVE_FAVORITE_URL, USER_REMOVE_LIKE, USER_SETFAV_URL, USER_SETLIKE_URL } from "../shared/constants/urls";
+import { USER_ADD_VIEW_TO_BOOK, USER_FAVBOOKS_URL, USER_GET_BUYED_BOOKS_URL, USER_ISFAVORITECHECK_URL, USER_ISLIKEDCHECK_URL, USER_LIKEDBOOKS_URL, USER_REMOVE_FAVORITE_URL, USER_REMOVE_LIKE, USER_SETFAV_URL, USER_SETLIKE_URL } from "../shared/constants/urls";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,14 @@ export class UserService {
   }
   getBuyedBooks(email: string | undefined): Observable<Book[]> {
     return this.http.get<Book[]>(USER_GET_BUYED_BOOKS_URL + email);
+  }
+
+  setView(email: string | undefined, bookId: number) {
+    let data = {
+      userEmail: email,
+      bookId: bookId
+    }
+    return this.http.patch(USER_ADD_VIEW_TO_BOOK, data);
   }
 
   setLike(email: string | undefined, bookId: number) {

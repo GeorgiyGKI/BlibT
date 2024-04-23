@@ -30,8 +30,8 @@ namespace WebLibWebApi.Controllers
             });
         }
 
-        [HttpPost]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
+        [HttpPost("registration")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] AuthorizeDto userForRegistration)
         {
             var result = await _service.AuthenticationService.RegisterUser(userForRegistration);

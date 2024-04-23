@@ -41,17 +41,37 @@ namespace Services
         public async Task<IEnumerable<BookDto>> GetUserBooksByTypeAsync(string userEmail, string type)
         {
             var user = await GetUserWithManyToManyTablesAsync(userEmail);
+            var list = new List<Book>();
 
             switch (type)
             {
                 case "UserBookBuyed":
-                    return _mapper.Map<IEnumerable<BookDto>>(user.UserBookBuyeds);
+                    foreach (var userBook in user.UserBookBuyeds)
+                    {
+                        var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                        list.Add(book);
+                    }
+
+                    return _mapper.Map<IEnumerable<BookDto>>(list);
 
                 case "UserBookLike":
-                    return _mapper.Map<IEnumerable<BookDto>>(user.UserBookLikes);
+                 
+                    foreach (var userBook in user.UserBookLikes)
+                    {
+                        var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                        list.Add(book);
+                    }
+                    
+                    return _mapper.Map<IEnumerable<BookDto>>(list);
 
                 case "UserBookFavorite":
-                    return _mapper.Map<IEnumerable<BookDto>>(user.UserBookFavorites);
+                    foreach (var userBook in user.UserBookFavorites)
+                    {
+                        var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                        list.Add(book);
+                    }
+
+                    return _mapper.Map<IEnumerable<BookDto>>(list);
 
                 default:
                     return null;

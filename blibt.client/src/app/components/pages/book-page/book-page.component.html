@@ -46,10 +46,11 @@
     <div class="div-block-54">
       <p class="paragraph-2">See also:</p>
       <div class="w-layout-grid grid-4">
-       
-        <div (click)="goToAbout(book.id)" class="div-block-55" *ngFor="let rndBook of rndBooks">
-          <img [src]="resoursesUrl + rndBook.productImageName" loading="lazy" id="w-node-b4b3ba37-a937-1b5f-cd43-8a9c3503c470-5f5b38f4" alt="" class="image-2" />
-          <div>{{rndBook.title}}</div>
+        <div class="div-block-55" *ngFor="let rndBook of rndBooks">
+          <div  (click)="goToAbout(rndBook.id)">
+            <img [src]="resoursesUrl + rndBook.productImageName" loading="lazy" id="w-node-b4b3ba37-a937-1b5f-cd43-8a9c3503c470-5f5b38f4" alt="" class="image-2" />
+            <div>{{rndBook.title}}</div>
+          </div>
         </div>
       </div>
     </div>

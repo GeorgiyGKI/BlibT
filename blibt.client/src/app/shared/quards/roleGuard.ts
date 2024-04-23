@@ -27,7 +27,7 @@ export class RoleGuard implements CanActivate {
       }
     }
 
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
     return false;
   }
 }

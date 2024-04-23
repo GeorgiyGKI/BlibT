@@ -77,6 +77,18 @@ namespace BlibT.Server.Controllers
 
             return Ok();
         }
+        [HttpPatch("addView")]
+        [Authorize]
+        public async Task<IActionResult> AddViewBook([FromBody] UserBookDto userBook)
+        {
+
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            ++book.Views;
+
+            await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
+
+            return Ok();
+        }
 
 
         [HttpPost("isLiked")]

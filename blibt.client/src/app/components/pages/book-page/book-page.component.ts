@@ -25,12 +25,11 @@ export class BookPageComponent {
 
   constructor(private bookService: BookService,
     private route: ActivatedRoute,
-    private userServce: UserService,
+    private userService: UserService,
     private authService: authService,
     private cartService: CartService,
     private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
-
     if (this.id != null) {
       this.bookService.getBookById(Number(this.id)).subscribe(book => {
         this.book = book;
@@ -43,15 +42,24 @@ export class BookPageComponent {
 
     this.user = this.authService.userValue;
 
-    this.userServce.isFavoriteBookForUser(this.user?.email, Number(this.id)).subscribe(isFavorite => {
+    this.userService.setView(this.user?.email, Number(this.id)).subscribe({
+      next: (val: any) => {
+ 
+      },
+      error: (err: any) => {
+        console.error(err);
+      },
+    });
+
+    this.userService.isFavoriteBookForUser(this.user?.email, Number(this.id)).subscribe(isFavorite => {
       this.isFavorite = isFavorite;
     });
 
-    this.userServce.isLikedBookForUser(this.user?.email, Number(this.id)).subscribe(isLiked => {
+    this.userService.isLikedBookForUser(this.user?.email, Number(this.id)).subscribe(isLiked => {
       this.isLiked = isLiked;
     });
 
-    this.userServce.getBuyedBooks(this.user?.email).subscribe(books => {
+    this.userService.getBuyedBooks(this.user?.email).subscribe(books => {
       for (var i = 0; i < books.length; i++) {
         if (books[i].id === this.book.id) {
           this.isBuyed = true;
@@ -70,7 +78,7 @@ export class BookPageComponent {
 
   addLike(bookId: number) {
     if (!this.isLiked) {
-      this.userServce.setLike(this.user?.email, bookId).subscribe({
+      this.userService.setLike(this.user?.email, bookId).subscribe({
         next: (val: any) => {
           console.log(val);
           this.isLiked = true;
@@ -81,7 +89,7 @@ export class BookPageComponent {
       });
     }
     else {
-      this.userServce.removeLike(this.user?.email, bookId).subscribe({
+      this.userService.removeLike(this.user?.email, bookId).subscribe({
         next: (val: any) => {
           console.log(val);
           this.isLiked = false;
@@ -95,7 +103,7 @@ export class BookPageComponent {
 
   addFav(bookId: number) {
     if (!this.isFavorite) {
-      this.userServce.setFav(this.user?.email, bookId).subscribe({
+      this.userService.setFav(this.user?.email, bookId).subscribe({
         next: (val: any) => {
           console.log(val)
           this.isFavorite = true;
@@ -106,7 +114,7 @@ export class BookPageComponent {
       });
     }
     else {
-      this.userServce.removeFav(this.user?.email, bookId).subscribe({
+      this.userService.removeFav(this.user?.email, bookId).subscribe({
         next: (val: any) => {
           console.log(val);
           this.isFavorite = false;

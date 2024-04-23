@@ -29,7 +29,7 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpPost]
-        // [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorDto author)
         {
@@ -47,7 +47,7 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpPut("{id:int}")]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> UpdateAuthor(int id, [FromBody] AuthorDto author)
         {

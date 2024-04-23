@@ -53,8 +53,8 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpPost]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
-        //[Authorize(Roles = "Administrator")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateBook([FromForm] BookDto book)
         {
             var fileName = await _fileService.SaveImageAsync(book.ImageFile);
@@ -68,7 +68,7 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             await _service.BookService.DeleteBookAsync(id, trackChanges: false);
@@ -77,8 +77,8 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpPut("{id:int}")]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
-        //[Authorize(Roles = "Administrator, Moderator")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> UpdateBook(int id, [FromForm] BookDto book)
         {
             if (book.ImageFile != null )

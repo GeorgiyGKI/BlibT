@@ -1,3 +1,8 @@
 .sidebar {
   height: 100%;
 }
+
+.option-text{
+    color: white;
+    text-decoration: none;
+}

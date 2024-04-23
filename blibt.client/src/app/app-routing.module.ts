@@ -9,11 +9,11 @@ import { AuthorTableComponent } from './components/admin-panel/Models/Authors/au
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { AuthGuard } from './shared/quards/authGuard';
-import { RoleGuard } from './shared/quards/roleGuard';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { BookPageComponent } from './components/pages/book-page/book-page.component';
 import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
 import { TransactionTableComponent } from './components/admin-panel/Models/Transactions/transaction-table/transaction-table.component';
+import { RoleGuard } from './shared/quards/roleGuard';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'registration', component: RegisterPageComponent },
   {
     path: 'admin', component: BodyComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
     children: [
       { path: 'books', component: DataTableComponent },
       { path: 'genres', component: GenreTableComponent },
@@ -31,12 +31,21 @@ const routes: Routes = [
       { path: 'transactions', component: TransactionTableComponent },
     ],
     data: {
-      role: 'Administrator'
+      role: ["Administrator", "Moderator"]
     }
   },
-  { path: 'profile', component: UserProfileComponent },
-  { path: 'about/:id', component: BookPageComponent },
-  { path: 'cart', component: CartPageComponent }
+  {
+    path: 'profile', component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'about/:id', component: BookPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'cart', component: CartPageComponent,
+    canActivate: [AuthGuard],
+  }
 
 ];
 

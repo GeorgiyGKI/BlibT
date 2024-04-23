@@ -22,11 +22,14 @@ export class RegisterPageComponent {
 
   registration() {
     const formVal = this.regForm.value;
-    this.authService.registration(formVal.email, formVal.password, formVal.name).subscribe(
-      () => {
-        console.log("User is logged in");
-        this.router.navigateByUrl('/');
-      }
-    )
+    this.authService.registration(formVal.email, formVal.password, formVal.name).subscribe({
+      next: (val: any) => {
+        window.location.href = '/login';
+      },
+      error: (err: any) => {
+        alert("Incorect password or email")
+        console.error(err);
+      },
+    });
   }
 }

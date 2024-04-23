@@ -39,7 +39,7 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpPost]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateGenre([FromBody] GenreDto genre)
         {
@@ -58,7 +58,7 @@ namespace WebLibWebApi.Controllers
         }
 
         [HttpPut("{id:int}")]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> UpdateGenre(int id, [FromBody] GenreDto genre)
         {

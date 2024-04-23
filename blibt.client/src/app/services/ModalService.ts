@@ -17,7 +17,6 @@ export class ModalService {
     this.modalInfoVisible = true;
   }
 
-
   closeModal() {
     this.modalInfoVisible = false;
     this.modalFormVisible = false;

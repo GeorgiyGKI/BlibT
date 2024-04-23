@@ -37,9 +37,11 @@ export class LoginPageComponent {
           return;
         }
         this.reloadPage();
+        
         window.location.href = '/';
       },
       error: (err: any) => {
+        alert("Wrong password or email")
         console.error(err);
       },
     });

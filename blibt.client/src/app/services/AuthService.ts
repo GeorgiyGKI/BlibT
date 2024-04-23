@@ -34,7 +34,14 @@ export class authService {
   }
 
   registration(email: string, password: string, name: string) {
-    return this.http.post<any>(USER_REGISTER_URL, { email, password, name });
+    let data = {
+      name,
+      email,
+      password,
+      roles: []
+    }
+
+    return this.http.post<any>(USER_REGISTER_URL, data);
   }
 
   logout() {
