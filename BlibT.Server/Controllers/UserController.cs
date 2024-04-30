@@ -15,9 +15,6 @@ namespace BlibT.Server.Controllers
         private readonly IServiceManager _service;
         public UserController(IServiceManager service) => _service = service;
 
-
-
-      
         [HttpGet("likedBooks/{email}")]
         [Authorize]
         public async Task<IActionResult> GetLikedBooks(string email)
@@ -53,7 +50,7 @@ namespace BlibT.Server.Controllers
 
             await _service.UserService.AddBooksByTypeAsync(userBook.UserEmail, param, "UserBookFavorite");
 
-            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, true);
             ++book.Favorits;
 
             await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
@@ -70,7 +67,7 @@ namespace BlibT.Server.Controllers
 
             await _service.UserService.AddBooksByTypeAsync(userBook.UserEmail, param , "UserBookLike");
 
-            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, true);
             ++book.Likes;
 
             await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
@@ -82,7 +79,7 @@ namespace BlibT.Server.Controllers
         public async Task<IActionResult> AddViewBook([FromBody] UserBookDto userBook)
         {
 
-            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, true);
             ++book.Views;
 
             await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
@@ -115,7 +112,7 @@ namespace BlibT.Server.Controllers
         {
             await _service.UserService.RemoveBookByTypeAsync(userBook.UserEmail, userBook.BookId, "UserBookFavorite");
 
-            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, true);
             --book.Likes;
 
             await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);
@@ -128,7 +125,7 @@ namespace BlibT.Server.Controllers
         {
             await _service.UserService.RemoveBookByTypeAsync(userBook.UserEmail, userBook.BookId, "UserBookLike");
 
-            var book = await _service.BookService.GetBookAsync(userBook.BookId, false);
+            var book = await _service.BookService.GetBookAsync(userBook.BookId, true);
             --book.Likes;
 
             await _service.BookService.UpdateBookAsync(userBook.BookId, book, true);

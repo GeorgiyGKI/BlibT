@@ -20,10 +20,12 @@ export class RoleGuard implements CanActivate {
 
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
     const user = this.authenticationService.userValue;
-    let authRole = route.data['role'];
+    let authRole: string[] = route.data['role'];
     if (user && user.roles) {
-      if (user.roles.indexOf(authRole) !== -1) {
-        return true;
+      for (var i = 0; i < authRole.length; i++) {
+        if (user.roles.includes(authRole[i])) {
+          return true;
+        }
       }
     }
 

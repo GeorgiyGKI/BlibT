@@ -12,8 +12,8 @@ using Repository;
 namespace BlibT.Server.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240401215529_Users")]
-    partial class Users
+    [Migration("20240429170207_Int")]
+    partial class Int
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,20 +116,20 @@ namespace BlibT.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Favorits")
+                    b.Property<int>("Favorits")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Likes")
+                    b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<string>("Pages")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductImageName")
                         .HasColumnType("nvarchar(max)");
@@ -137,12 +137,32 @@ namespace BlibT.Server.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Views")
+                    b.Property<int?>("TransactionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId2")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Views")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.HasIndex("UserId2");
 
                     b.ToTable("Books");
 
@@ -152,286 +172,240 @@ namespace BlibT.Server.Migrations
                             Id = 1,
                             AuthorId = 1,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 12,
+                            Likes = 96,
+                            Price = 49m,
                             ProductImageName = "default.jpg",
                             Title = "The Da Vinci Code",
-                            Views = 10
+                            Views = 19
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = 2,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 24,
+                            Likes = 28,
+                            Price = 35m,
                             ProductImageName = "default.jpg",
                             Title = "Dune",
-                            Views = 10
+                            Views = 19
                         },
                         new
                         {
                             Id = 3,
                             AuthorId = 3,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 15,
+                            Likes = 72,
+                            Price = 27m,
                             ProductImageName = "default.jpg",
                             Title = "Pride and Prejudice",
-                            Views = 10
+                            Views = 11
                         },
                         new
                         {
                             Id = 4,
                             AuthorId = 4,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 19,
+                            Likes = 4,
+                            Price = 41m,
                             ProductImageName = "default.jpg",
                             Title = "The Girl with the Dragon Tattoo",
-                            Views = 10
+                            Views = 43
                         },
                         new
                         {
                             Id = 5,
                             AuthorId = 5,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 23,
+                            Likes = 60,
+                            Price = 39m,
                             ProductImageName = "default.jpg",
                             Title = "Harry Potter and the Sorcerer's Stone",
-                            Views = 10
+                            Views = 12
                         },
                         new
                         {
                             Id = 6,
                             AuthorId = 6,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 28,
+                            Likes = 71,
+                            Price = 20m,
                             ProductImageName = "default.jpg",
                             Title = "The Great Gatsby",
-                            Views = 10
+                            Views = 44
                         },
                         new
                         {
                             Id = 7,
                             AuthorId = 7,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 27,
+                            Likes = 55,
+                            Price = 26m,
                             ProductImageName = "default.jpg",
                             Title = "Steve Jobs",
-                            Views = 10
+                            Views = 4
                         },
                         new
                         {
                             Id = 8,
                             AuthorId = 8,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 7,
+                            Likes = 85,
+                            Price = 14m,
                             ProductImageName = "default.jpg",
                             Title = "The Hobbit",
-                            Views = 10
+                            Views = 28
                         },
                         new
                         {
                             Id = 9,
                             AuthorId = 9,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 24,
+                            Likes = 53,
+                            Price = 10m,
                             ProductImageName = "default.jpg",
                             Title = "It",
-                            Views = 10
+                            Views = 5
                         },
                         new
                         {
                             Id = 10,
                             AuthorId = 10,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 12,
+                            Likes = 88,
+                            Price = 35m,
                             ProductImageName = "default.jpg",
                             Title = "Romeo and Juliet",
-                            Views = 10
+                            Views = 46
                         },
                         new
                         {
                             Id = 11,
                             AuthorId = 2,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 22,
+                            Likes = 2,
+                            Price = 45m,
                             ProductImageName = "default.jpg",
                             Title = "The Hound of the Baskervilles",
-                            Views = 10
+                            Views = 36
                         },
                         new
                         {
                             Id = 12,
                             AuthorId = 2,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 29,
+                            Likes = 65,
+                            Price = 20m,
                             ProductImageName = "default.jpg",
                             Title = "Neuromancer",
-                            Views = 10
+                            Views = 12
                         },
                         new
                         {
                             Id = 13,
                             AuthorId = 5,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 15,
+                            Likes = 3,
+                            Price = 36m,
                             ProductImageName = "default.jpg",
                             Title = "Sense and Sensibility",
-                            Views = 10
+                            Views = 46
                         },
                         new
                         {
                             Id = 14,
+                            AuthorId = 0,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 24,
+                            Likes = 22,
+                            Price = 40m,
                             ProductImageName = "default.jpg",
                             Title = "The Girl Who Played with Fire",
-                            Views = 10
+                            Views = 8
                         },
                         new
                         {
                             Id = 15,
                             AuthorId = 5,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 9,
+                            Likes = 20,
+                            Price = 14m,
                             ProductImageName = "default.jpg",
                             Title = "Harry Potter and the Chamber of Secrets",
-                            Views = 10
+                            Views = 20
                         },
                         new
                         {
                             Id = 16,
                             AuthorId = 6,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 26,
+                            Likes = 63,
+                            Price = 42m,
                             ProductImageName = "default.jpg",
                             Title = "To Kill a Mockingbird",
-                            Views = 10
+                            Views = 6
                         },
                         new
                         {
                             Id = 17,
                             AuthorId = 7,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 27,
+                            Likes = 14,
+                            Price = 14m,
                             ProductImageName = "default.jpg",
                             Title = "Einstein: His Life and Universe",
-                            Views = 10
+                            Views = 15
                         },
                         new
                         {
                             Id = 18,
                             AuthorId = 8,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 16,
+                            Likes = 92,
+                            Price = 15m,
                             ProductImageName = "default.jpg",
                             Title = "The Lord of the Rings",
-                            Views = 10
+                            Views = 35
                         },
                         new
                         {
                             Id = 19,
                             AuthorId = 3,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 24,
+                            Likes = 71,
+                            Price = 13m,
                             ProductImageName = "default.jpg",
                             Title = "The Shining",
-                            Views = 10
+                            Views = 42
                         },
                         new
                         {
                             Id = 20,
                             AuthorId = 10,
                             Description = "Some text",
-                            Favorits = 10,
-                            Likes = 10,
-                            Pages = "[\"text\",\"from\",\"book\"]",
+                            Favorits = 18,
+                            Likes = 25,
+                            Price = 15m,
                             ProductImageName = "default.jpg",
                             Title = "Macbeth",
-                            Views = 10
-                        });
-                });
-
-            modelBuilder.Entity("Entities.Models.BookGenre", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookId", "GenreId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("BookGenres");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            BookId = 1,
-                            GenreId = 3
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 3
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 4
-                        },
-                        new
-                        {
-                            BookId = 2,
-                            GenreId = 5
+                            Views = 44
                         });
                 });
 
@@ -503,6 +477,28 @@ namespace BlibT.Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Entities.Models.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -544,6 +540,9 @@ namespace BlibT.Server.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("Pocket")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -593,6 +592,20 @@ namespace BlibT.Server.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "80fba7ea-a0cd-4aaa-bb7f-c2f51cbd48c1",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "2d0dc77d-a6ca-4b98-8659-2fc76060cccb",
+                            Name = "Moderator",
+                            NormalizedName = "MODERATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -720,26 +733,25 @@ namespace BlibT.Server.Migrations
                 {
                     b.HasOne("Entities.Models.Author", null)
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId");
-                });
-
-            modelBuilder.Entity("Entities.Models.BookGenre", b =>
-                {
-                    b.HasOne("Entities.Models.Book", "Book")
-                        .WithMany("BookGenres")
-                        .HasForeignKey("BookId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.Genre", "Genre")
-                        .WithMany("BookGenres")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Entities.Models.Transaction", null)
+                        .WithMany("Books")
+                        .HasForeignKey("TransactionId");
 
-                    b.Navigation("Book");
+                    b.HasOne("Entities.Models.User", null)
+                        .WithMany("BuyedBooks")
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("Genre");
+                    b.HasOne("Entities.Models.User", null)
+                        .WithMany("FavoriteBooks")
+                        .HasForeignKey("UserId1");
+
+                    b.HasOne("Entities.Models.User", null)
+                        .WithMany("LikedBooks")
+                        .HasForeignKey("UserId2");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -798,14 +810,18 @@ namespace BlibT.Server.Migrations
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("Entities.Models.Book", b =>
+            modelBuilder.Entity("Entities.Models.Transaction", b =>
                 {
-                    b.Navigation("BookGenres");
+                    b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("Entities.Models.Genre", b =>
+            modelBuilder.Entity("Entities.Models.User", b =>
                 {
-                    b.Navigation("BookGenres");
+                    b.Navigation("BuyedBooks");
+
+                    b.Navigation("FavoriteBooks");
+
+                    b.Navigation("LikedBooks");
                 });
 #pragma warning restore 612, 618
         }

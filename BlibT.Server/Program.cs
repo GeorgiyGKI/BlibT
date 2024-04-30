@@ -1,3 +1,4 @@
+using Contracts;
 using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.Identity;
@@ -55,11 +56,14 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        var context = services.GetRequiredService<RepositoryContext>();
+        var context = services.GetRequiredService<IRepositoryManager>();
         var userManager = services.GetRequiredService<UserManager<User>>();
 
-        var adminSeeder = new AdminSeeder(context, userManager);
+        var adminSeeder = new AdminSeeder(userManager);
         await adminSeeder.Seed();
+
+        var bookSeeder = new BookGenresSeeder(context);
+        await bookSeeder.Seed();
     }
     catch (Exception ex)
     {

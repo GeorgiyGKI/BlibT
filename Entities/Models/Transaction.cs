@@ -10,9 +10,9 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public string? UserEmail { get; set; }
-        public decimal? Sum { get; set; }
+        public decimal Sum { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
-        public List<Book> Books { get; set; } = [];
-        public ICollection<BookTransaction> BookTransactions { get; set; } = [];
+
+        public ICollection<Book> Books { get; set; } = [];
     }
 }

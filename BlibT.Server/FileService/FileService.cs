@@ -30,8 +30,8 @@ namespace BlibT.Server.FileService
 
                 if (!allowedExtensions.Contains(ext))
                 {
-                   //string msg = string.Format("Only {0} extensions are allowed", string.Join(",", allowedExtensions));
-                   // execute Exception
+                   string msg = string.Format("Only {0} extensions are allowed", string.Join(",", allowedExtensions));
+                   throw new Exception(msg);
                 }
 
                 string uniqueString = Guid.NewGuid().ToString();

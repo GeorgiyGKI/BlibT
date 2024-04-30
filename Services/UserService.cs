@@ -46,28 +46,28 @@ namespace Services
             switch (type)
             {
                 case "UserBookBuyed":
-                    foreach (var userBook in user.UserBookBuyeds)
+                    foreach (var userBook in user.BuyedBooks)
                     {
-                        var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                        var book = await _repository.Book.GetBookAsync(userBook.Id, false);
                         list.Add(book);
                     }
 
                     return _mapper.Map<IEnumerable<BookDto>>(list);
 
                 case "UserBookLike":
-                 
-                    foreach (var userBook in user.UserBookLikes)
+
+                    foreach (var userBook in user.LikedBooks)
                     {
-                        var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                        var book = await _repository.Book.GetBookAsync(userBook.Id, false);
                         list.Add(book);
                     }
-                    
+
                     return _mapper.Map<IEnumerable<BookDto>>(list);
 
                 case "UserBookFavorite":
-                    foreach (var userBook in user.UserBookFavorites)
+                    foreach (var userBook in user.FavoriteBooks)
                     {
-                        var book = await _repository.Book.GetBookAsync(userBook.BookId, false);
+                        var book = await _repository.Book.GetBookAsync(userBook.Id, false);
                         list.Add(book);
                     }
 
@@ -78,25 +78,36 @@ namespace Services
             }
         }
 
-        public async Task AddBooksByTypeAsync(string userEmail, List<BookDto> bookIds, string type)
+        public async Task AddBooksByTypeAsync(string userEmail, List<BookDto> bookDtos, string type)
         {
             var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
             switch (type)
             {
                 case "UserBookBuyed":
-                    foreach (var bookId in bookIds)
-                        user.UserBookBuyeds.Add(new UserBookBuyed { BookId = (int)bookId.Id });
+                    foreach (var bookDto in bookDtos)
+                    {
+                        var book = await _repository.Book.GetBookAsync((int)bookDto.Id, true);
+                        user.BuyedBooks.Add(book);
+                    }
+
                     break;
 
                 case "UserBookLike":
-                    foreach (var bookId in bookIds)
-                        user.UserBookLikes.Add(new UserBookLike { BookId = (int)bookId.Id });
+                    foreach (var bookDto in bookDtos)
+                    {
+                        var book = await _repository.Book.GetBookAsync((int)bookDto.Id, true);
+                        user.LikedBooks.Add(book);
+                    }
                     break;
 
                 case "UserBookFavorite":
-                    foreach (var bookId in bookIds)
-                        user.UserBookFavorites.Add(new UserBookFavorite { BookId = (int)bookId.Id });
+                    foreach (var bookDto in bookDtos)
+                    {
+                        var book = await _repository.Book.GetBookAsync((int)bookDto.Id, true);
+                        user.FavoriteBooks.Add(book);
+                    }
+
                     break;
             }
 
@@ -110,17 +121,17 @@ namespace Services
 
             switch (type)
             {
-                case "UserBookLike":
-                    var likedBook = user.UserBookLikes.FirstOrDefault(x => x.BookId == bookId);
-                    user.UserBookLikes.Remove(likedBook);
+                //case "UserBookLike":
+                //    var likedBook = user.UserBookLikes.FirstOrDefault(x => x.BookId == bookId);
+                //    user.UserBookLikes.Remove(likedBook);
 
 
-                    break;
-                case "UserBookFavorite":
-                    var favoriteBook = user.UserBookFavorites.FirstOrDefault(x => x.BookId == bookId);
-                    user.UserBookFavorites.Remove(favoriteBook);
+                //    break;
+                //case "UserBookFavorite":
+                //    var favoriteBook = user.UserBookFavorites.FirstOrDefault(x => x.BookId == bookId);
+                //    user.UserBookFavorites.Remove(favoriteBook);
 
-                    break;
+                //    break;
             }
 
             await _repository.SaveAsync();
@@ -130,7 +141,7 @@ namespace Services
         {
             var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
-            var foundedBook = user.UserBookLikes.First(b => b.BookId == bookId);
+            var foundedBook = user.LikedBooks.First(b => b.Id == bookId);
             var isFounded = foundedBook != null;
 
             return isFounded;
@@ -140,7 +151,7 @@ namespace Services
         {
             var user = await GetUserWithManyToManyTablesAsync(userEmail);
 
-            var foundedBook = user.UserBookFavorites.First(b => b.BookId == bookId);
+            var foundedBook = user.FavoriteBooks.First(b => b.Id == bookId);
             var isFounded = foundedBook != null;
 
             return isFounded;
@@ -170,9 +181,9 @@ namespace Services
 
         public async Task<User> GetUserWithManyToManyTablesAsync(string userEmail)
         {
-            var user = await _userManager.Users.Include(u => u.UserBookFavorites)
-                                               .Include(u => u.UserBookBuyeds)
-                                               .Include(u => u.UserBookLikes)
+            var user = await _userManager.Users.Include(u => u.FavoriteBooks)
+                                               .Include(u => u.BuyedBooks)
+                                               .Include(u => u.LikedBooks)
                                                .FirstOrDefaultAsync(u => u.Email == userEmail);
 
             return user;

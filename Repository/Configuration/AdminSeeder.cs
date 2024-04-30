@@ -12,11 +12,9 @@ namespace Repository.Configuration
 {
     public class AdminSeeder
     {
-        private readonly RepositoryContext _context;
         private readonly UserManager<User> _userManager;
-        public AdminSeeder(RepositoryContext context, UserManager<User> userManager)
+        public AdminSeeder(UserManager<User> userManager)
         {
-            _context = context;
             _userManager = userManager;
         }
 
@@ -25,6 +23,7 @@ namespace Repository.Configuration
             var userCheck = await _userManager.FindByEmailAsync("admin@test.com") == null;
             if (userCheck)
             {
+
                 var admin = new User()
                 {
                     UserName = "Admin",

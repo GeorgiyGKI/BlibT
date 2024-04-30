@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +10,7 @@ namespace Repository.Configuration
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             Random rnd = new Random();
-
+            
             builder.HasData(
                 new Book
                 {

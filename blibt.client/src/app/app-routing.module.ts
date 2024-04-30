@@ -22,6 +22,18 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'registration', component: RegisterPageComponent },
   {
+    path: 'profile', component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'about/:id', component: BookPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'cart', component: CartPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'admin', component: BodyComponent,
     canActivate: [AuthGuard, RoleGuard],
     children: [
@@ -34,18 +46,6 @@ const routes: Routes = [
       role: ["Administrator", "Moderator"]
     }
   },
-  {
-    path: 'profile', component: UserProfileComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'about/:id', component: BookPageComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'cart', component: CartPageComponent,
-    canActivate: [AuthGuard],
-  }
 
 ];
 

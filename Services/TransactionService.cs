@@ -33,7 +33,10 @@ namespace Services
             var transaction = _mapper.Map<Transaction>(transactionDto);
             transaction.Books = [];
             foreach (var buyedBookDto in transactionDto.Books)
-                transaction.BookTransactions.Add(new BookTransaction { BookId = (int)buyedBookDto.Id });
+            {
+                var genre = await _repository.Book.GetBookAsync((int)buyedBookDto.Id, false);
+                transaction.Books.Add(genre);
+            }
 
             transaction.DateTime = DateTime.Now;
             _repository.Transaction.CreateTransaction(transaction);

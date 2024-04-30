@@ -43,13 +43,15 @@ namespace Service.BookService
 
         public async Task<BookDto> CreateBookAsync(BookDto bookDto)
         {
-            var bookGenres = new List<BookGenre>();
+            var bookGenres = new List<Genre>();
+            
             foreach (var genreId in bookDto.GenresIds)
             {
-                bookGenres.Add(new BookGenre { GenreId = int.Parse(genreId) });
+                var genre = await _repository.Genre.GetGenreAsync(int.Parse(genreId), true);
+                bookGenres.Add(genre);
             };
             var bookEntity = _mapper.Map<Book>(bookDto);
-            bookEntity.BookGenres = bookGenres;
+            bookEntity.Genres = bookGenres;
 
             _repository.Book.CreateBook(bookEntity);
             await _repository.SaveAsync();
@@ -72,11 +74,12 @@ namespace Service.BookService
             var bookEntity = await _repository.Book.GetBookAsync(id, trackChanges) ?? throw new BookNotFoundException(id);
             if (bookForUpdate.GenresIds != null)
             {
-                bookEntity.BookGenres.Clear();
+                bookEntity.Genres.Clear();
 
                 foreach (var genreId in bookForUpdate.GenresIds)
                 {
-                    bookEntity.BookGenres.Add(new BookGenre { GenreId = int.Parse(genreId) });
+                    var genre = await _repository.Genre.GetGenreAsync(int.Parse(genreId), true);
+                    bookEntity.Genres.Add(genre);
                 };
             }
 
