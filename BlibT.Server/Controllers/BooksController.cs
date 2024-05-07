@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Service.ServiceManager;
 using ServicesInterfaces;
+using Shared;
 using Shared.DataTransferObject;
 using WebLibWebApi.Action_Filters;
 
@@ -20,12 +23,34 @@ namespace WebLibWebApi.Controllers
             _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllBooks()
         {
             var books = await _service.BookService.GetAllBooksAsync(trackChanges: false);
 
             return books != null ? Ok(books) : NotFound();
+        }
+        [HttpGet]
+        public async Task<ActionResult<ApiResult<BookDto>>> GetAllBooks(
+            int pageIndex = 0,
+            int pageSize = 10,
+            string? sortColumn = null,
+            string? sortOrder = null,
+            string? filterColumn = null,
+            string? filterQuery = null
+            )
+        {
+            var books = await _service.BookService.GetAllBooksAsync(trackChanges: true);
+            return books != null 
+                ? await ApiResult<BookDto>.CreateAsync(
+                    books.AsQueryable(),
+                    pageIndex,
+                    pageSize,
+                    sortColumn,
+                    sortOrder,
+                    filterColumn,
+                    filterQuery)
+                : NotFound();
         }
 
         [HttpGet("rndBooks")]

@@ -1,19 +1,48 @@
 <section class="books">
+
+ 
+
+
   <div class="w-layout-blockcontainer container w-container">
+    <h1>Online book library/Books</h1>
+    <p>Here you can read whatever you want.</p>
+    <!-- filter -->
+    <mat-form-field [hidden]="!books">
+      <input matInput #filter (keyup)="onFilterTextChanged(filter.value)"
+             placeholder="Filter by name...">
+    </mat-form-field>
+    <!-- /filter -->
+    <p>Sorting by:</p>
+    <!-- Sorting -->
+    <!-- I'm sorry for this...maybe...in a future I'll rewrite this part of the code -->
+    <table mat-table [dataSource]="books"
+           [hidden]="!books"
+           matSort (matSortChange)="loadData()"
+           [matSortActive]="defaultSortColumn"
+           [matSortDirection]="defaultSortOrder">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      </ng-container>
+      <ng-container matColumnDef="likes">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Likes</th>
+      </ng-container>
+      <ng-container matColumnDef="views" class="order-select-block">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Views</th>
+      </ng-container>
+      <ng-container matColumnDef="favorits">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Favorits</th>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!-- /Sorting -->
     <div>
       <div>
-        <div>
-          <h1>Online book library / Book s</h1>
-          <p>Here you can read whatever you want.</p>
-          <div class="order-div">
-            <div (click)="sortByLikes()" class="order-select-block">Likes</div>
-            <div (click)="sortByViews()" class="order-select-block">Views</div>
-            <div (click)="sortByRnd()" class="order-select-block">Random</div>
-          </div>
-        </div>
         <div class="book-list-all">
+
           <div id="w-node-ca45952d-71ef-afb7-e904-c10d19cadcb3-5f5b38e6" class="w-layout-layout quick-stack wf-layout-layout">
-            <div id="w-node-_57b21e04-26a9-2f3d-2b45-6da8c5fa77e1-5f5b38e6" class="w-layout-cell cell" *ngFor="let book of sortedBooks">
+            <div id="w-node-_57b21e04-26a9-2f3d-2b45-6da8c5fa77e1-5f5b38e6" class="w-layout-cell cell" *ngFor="let book of books">
               <div (click)="goToAbout(book.id)">
                 <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" class="book-img-div">
                 <p class="bookname">{{book.title}}</p>
@@ -38,7 +67,13 @@
               </div>
             </div>
           </div>
+          <!-- Pagination directive -->
+          <mat-paginator [hidden]="!books"
+                         (page)="getData($event)"
+                         [pageSize]="10"
+                         showFirstLastButtons></mat-paginator>
         </div>
+
       </div>
     </div>
   </div>

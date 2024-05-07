@@ -121,17 +121,17 @@ namespace Services
 
             switch (type)
             {
-                //case "UserBookLike":
-                //    var likedBook = user.UserBookLikes.FirstOrDefault(x => x.BookId == bookId);
-                //    user.UserBookLikes.Remove(likedBook);
+                case "UserBookLike":
+                    var likedBook = user.LikedBooks.FirstOrDefault(x => x.Id == bookId);
+                    user.LikedBooks.Remove(likedBook);
 
 
-                //    break;
-                //case "UserBookFavorite":
-                //    var favoriteBook = user.UserBookFavorites.FirstOrDefault(x => x.BookId == bookId);
-                //    user.UserBookFavorites.Remove(favoriteBook);
+                    break;
+                case "UserBookFavorite":
+                    var favoriteBook = user.FavoriteBooks.FirstOrDefault(x => x.Id == bookId);
+                    user.FavoriteBooks.Remove(favoriteBook);
 
-                //    break;
+                    break;
             }
 
             await _repository.SaveAsync();

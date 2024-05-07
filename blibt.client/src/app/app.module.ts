@@ -27,6 +27,7 @@ import { JwtInterceptor } from './shared/interceptors/authInterceptor';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
 import { TransactionTableComponent } from './components/admin-panel/Models/Transactions/transaction-table/transaction-table.component';
+import { AngularMaterialModule } from './angular-material.module';
 
 
 @NgModule({
@@ -57,8 +58,9 @@ import { TransactionTableComponent } from './components/admin-panel/Models/Trans
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    AngularMaterialModule,
     ReactiveFormsModule,
-    MatListModule
+    HttpClientModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },

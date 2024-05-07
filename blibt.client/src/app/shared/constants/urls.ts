@@ -14,11 +14,9 @@ export const GENRE_BY_ID_URL = GENRES_URL;
 export const GENRES_BY_BOOK_ID = GENRES_URL + 'GenresByBookId/';
 
 export const BOOKS_URL = BASE_URL + '/api/books/';
-export const BOOKS_TAGS_URL = BOOKS_URL + '/tags';
-export const BOOKS_BY_SEARCH_URL = BOOKS_URL + '/search/';
-export const BOOKS_BY_TAG_URL = BOOKS_URL + '/tag/';
 export const BOOKS_BY_GENRE_ID = BOOKS_URL + 'BooksByGenreId/';
 export const RND_BOOKS_FOR_BP = BOOKS_URL + 'rndBooks/';
+export const BOOKS_ALL = BOOKS_URL + 'all/';
 
 //user
 export const USER_LOGIN_URL = BASE_URL + '/api/authentication/login/';

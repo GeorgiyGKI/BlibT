@@ -1,8 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { BOOKS_BY_GENRE_ID, BOOKS_URL, RND_BOOKS_FOR_BP } from '../shared/constants/urls';
+import { BOOKS_ALL, BOOKS_BY_GENRE_ID, BOOKS_URL, RND_BOOKS_FOR_BP } from '../shared/constants/urls';
 import { Book } from "../shared/models/Book";
+import { ApiResult } from "../shared/models/ApiResult";
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,11 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Book[]> {
-    const a = this.http.get<Book[]>(BOOKS_URL);
-    return a;
+    return this.http.get<Book[]>(BOOKS_ALL);
   }
 
   getBookById(id: number): Observable<Book> {
-    const a = this.http.get<Book>(BOOKS_URL + id);
-    return a;
+    return this.http.get<Book>(BOOKS_URL + id);
   }
   addBook(data: Book) {
     let formData = new FormData();
@@ -60,5 +59,29 @@ export class BookService {
 
   getRndBooksForBookPage(): Observable<Book[]> {
     return this.http.get<Book[]>(RND_BOOKS_FOR_BP)
+  }
+
+
+  getData(
+    pageIndex: number,
+    pageSize: number,
+    sortColumn: string,
+    sortOrder: string,
+    filterColumn: string | null,
+    filterQuery: string | null
+  ): Observable<ApiResult<Book>> {
+    var params = new HttpParams()
+      .set("pageIndex", pageIndex.toString())
+      .set("pageSize", pageSize.toString())
+      .set("sortColumn", sortColumn)
+      .set("sortOrder", sortOrder);
+
+    if (filterColumn && filterQuery) {
+      params = params
+        .set("filterColumn", filterColumn)
+        .set("filterQuery", filterQuery);
+    }
+
+    return this.http.get<ApiResult<Book>>(BOOKS_URL, { params });
   }
 }
