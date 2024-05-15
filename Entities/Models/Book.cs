@@ -15,6 +15,7 @@ namespace Entities.Models
         public string? Title { get; set; }
         public string? ProductImageName { get; set; }
         public string? Description { get; set; }
+        public string? DocxFileName { get; set; }
 
         public int Likes { get; set; }
         public int Views { get; set; }

@@ -80,6 +80,11 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
     RequestPath = "/resources"
 });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Uploads/Documents")),
+    RequestPath = "/docx"
+});
 // Configure the HTTP request pipeline.
 
 app.UseCors("CorsPolicy");
