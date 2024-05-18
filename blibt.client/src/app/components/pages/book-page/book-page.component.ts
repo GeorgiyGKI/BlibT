@@ -7,6 +7,7 @@ import { UserService } from '../../../services/UserService';
 import { authService } from '../../../services/AuthService';
 import { User } from '../../../shared/models/User';
 import { CartService } from '../../../services/CartService';
+import { FileService } from '../../../services/FileService';
 
 @Component({
   selector: 'app-book-page',
@@ -28,6 +29,7 @@ export class BookPageComponent {
     private userService: UserService,
     private authService: authService,
     private cartService: CartService,
+    private fileService: FileService,
     private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id != null) {
@@ -65,6 +67,20 @@ export class BookPageComponent {
           this.isBuyed = true;
         }
       }
+    });
+  }
+
+  downloadFile() {
+    this.fileService.GetFile(this.user?.email, this.book.id).subscribe(response => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "meow";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     });
   }
 
@@ -125,4 +141,7 @@ export class BookPageComponent {
       })
     }
   }
+
+
+
 }

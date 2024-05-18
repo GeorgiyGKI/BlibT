@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { FILE_CREATE_URL, FILE_GET_URL } from "../shared/constants/urls";
 
 @Injectable({
   providedIn: 'root'
@@ -8,24 +9,24 @@ import { Observable } from "rxjs";
 export class FileService {
   constructor(private http: HttpClient) { }
 
-  CreateFile(bookTitle: string, file: File, email: string) {
+  CreateFile(bookId: number, file: File) {
     let formData = new FormData();
-    formData.append("bookTitle", bookTitle);
-    formData.append("file", file ?? "");
-    formData.append("email", email);
+    formData.append("BookId", bookId.toString());
+    formData.append("FormFile", file ?? "");
+    formData.append("Email", "");
 
-    //!!! ТО ЧТО В КАВЫЧКАХ ПОМЕНЯТЬ НА РАБОЧИЙ КОД
-    return this.http.post("FILE_CREATE", formData);
-    }
+    return this.http.post(FILE_CREATE_URL, formData);
 
-  GetFile(email: string, bookTitle: string): Observable<File>{
+  }
+
+  GetFile(email: string | undefined, bookTitle: string){
     let body = {
       emal: email,
       bookTitle: bookTitle
     }
 
-    //!!!
-    return this.http.get<File>("FILE_GET" + "/{email}/{bookTitle}");
+    let url = "https://localhost:7148/docx/2dc4ccd6-a6c0-4cd7-babb-cd7407ec9beb.docx";
+    return this.http.get(url, { responseType: 'blob' });
     }
   }
 

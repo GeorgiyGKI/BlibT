@@ -5,6 +5,7 @@ import { AuthorService } from '../../../../../services/AuthorService';
 import { BookService } from '../../../../../services/BookService';
 import { GenreService } from '../../../../../services/GenreService';
 import { RESOURCES } from '../../../../../shared/constants/urls';
+import { FileService } from '../../../../../services/FileService';
 
 @Component({
   selector: 'app-data-table',
@@ -14,11 +15,12 @@ export class DataTableComponent  {
   selectedBook: Book = new Book();
   resoursesUrl: string = RESOURCES
   books: Book[] = [];
-
+  selectedFile: File | null = null;
   constructor(private authorService: AuthorService,
     private bookService: BookService,
     private genreService: GenreService,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private fileService: FileService) {
     this.bookService.getAll().subscribe((books => {
       this.books = books;
       this.books.forEach(book => {
@@ -31,6 +33,23 @@ export class DataTableComponent  {
       });
     }));
   }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  onSubmit(bookId:number) {
+    if (this.selectedFile) {
+      this.fileService.CreateFile(bookId, this.selectedFile).subscribe(
+        (response) => console.log(response),
+        (error) => console.error(error)
+      )
+    }
+  }
+
 
   openCreateModal() {
     this.modalService.openFormModal();

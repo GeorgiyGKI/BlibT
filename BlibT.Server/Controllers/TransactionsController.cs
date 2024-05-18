@@ -30,6 +30,7 @@ namespace BlibT.Server.Controllers
                 user != null &&
                 user.Pocket >= transactionDto.Sum)
             {
+                //!!! ТУТ БЛЯ ОШИБЬКА 
                 await _service.TransactionService.CreateTransactionAsync(transactionDto);
                 await _service.UserService.RemoveMoney(transactionDto.UserEmail, (decimal)transactionDto.Sum);
                 await _service.UserService.AddBooksByTypeAsync(transactionDto.UserEmail, (List<BookDto>)transactionDto.Books, "UserBookBuyed");

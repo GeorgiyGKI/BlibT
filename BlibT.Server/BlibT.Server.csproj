@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Uploads\Documents\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

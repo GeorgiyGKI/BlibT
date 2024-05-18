@@ -85,10 +85,7 @@ namespace WebLibWebApi.Controllers
             var fileName = await _fileService.SaveImageAsync(book.ImageFile);
             book.ProductImageName = fileName; // getting name of image
 
-
             await _service.BookService.CreateBookAsync(book);
-
-
             return NoContent();
         }
 

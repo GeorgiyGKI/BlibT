@@ -10,6 +10,7 @@ namespace Shared.DataTransferObject
         public int? AuthorId { get; set; }
         public string? Title { get; set; }
         public string? ProductImageName { get; set; }
+        public string? DocxFileName { get; set; }
         public string[]? GenresIds { get; set; }
         public string? Description { get; set; }
         public int? Likes { get; set; } = 0;

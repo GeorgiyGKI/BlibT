@@ -24,6 +24,10 @@
       <div (click)="Delete(book.id)" class="admin-btn delete">Delete</div>
       <div (click)="openEditModal(book)" class="admin-btn edit">Edit</div>
       <div (click)="openInfoModal(book)" class="full-info-btn edit">fullInfo</div>
+      <form (ngSubmit)="onSubmit(book.id)" #fileUploadForm="ngForm">
+        <input type="file" (change)="onFileSelected($event)" required />
+        <button type="submit" [disabled]="!selectedFile">Upload text file</button>
+      </form>
     </div>
   </div>
 </div>

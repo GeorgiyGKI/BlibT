@@ -73,7 +73,7 @@ using (var scope = app.Services.CreateScope())
 
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseDefaultFiles();
 app.UseStaticFiles(new StaticFileOptions
 {

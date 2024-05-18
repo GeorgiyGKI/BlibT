@@ -10,7 +10,7 @@ namespace Shared.DataTransferObjects
     public record FileDto
     {
         public string Email { get; set; }
-        public int bookId { get; set; }
+        public int BookId { get; set; }
         public IFormFile? FormFile { get; set; }
     }
 }

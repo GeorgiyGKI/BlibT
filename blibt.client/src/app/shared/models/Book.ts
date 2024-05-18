@@ -12,6 +12,7 @@ export class Book {
   favorits: number = 0;
   price: number = 0
   ImageFile?: File;
+  DocxFileName?: string;
 
 
   genres: Array<Genre> = [];

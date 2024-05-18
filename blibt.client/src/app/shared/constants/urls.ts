@@ -32,7 +32,10 @@ export const USER_REMOVE_FAVORITE_URL = BASE_URL + '/api/user/removeFavoriteBook
 export const USER_GET_BUYED_BOOKS_URL = BASE_URL + '/api/user/buyedBooks/';
 export const USER_ADD_VIEW_TO_BOOK = BASE_URL + '/api/user/addView/';
 
-export const TRANSACTIONS_URL = BASE_URL + '/api/transactions/'; 
+export const TRANSACTIONS_URL = BASE_URL + '/api/transactions/';
+
+export const FILE_CREATE_URL = BASE_URL + '/api/file/';
+export const FILE_GET_URL = BASE_URL + '/api/file/';
 
 
 

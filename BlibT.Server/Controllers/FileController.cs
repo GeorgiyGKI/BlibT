@@ -18,24 +18,15 @@ namespace BlibT.Server.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        [HttpGet("/{email}/{bookTitle}")]
-        public async Task<IActionResult> GetFile()
-        {
-            var filePath = "path/to/your/file.docx";
-            var fileName = "file.docx";
-            var fileBytes = System.IO.File.ReadAllBytes(filePath);
-
-            return File(fileBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> CreateFile(FileDto file)
+        public async Task<IActionResult> CreateFile([FromForm] FileDto file)
         {
             var fileName = await _fileService.SaveDoxcFileAsync(file.FormFile);
-            var book = await _service.BookService.GetBookAsync(file.bookId, true);
-            //book.DocxFileName = fileName;
+            var book = await _service.BookService.GetBookAsync(file.BookId, true);
+            book.DocxFileName = fileName;
+            await _service.BookService.UpdateBookAsync((int)book.Id, book, true);
 
-            return Ok();
+            return NoContent();
         }
     }
 }

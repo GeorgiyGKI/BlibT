@@ -5,8 +5,9 @@
         <img [src]="resoursesUrl + book.productImageName" loading="lazy" alt="" class="image-2" />
         <div *ngIf="isBuyed === false"
              (click)="addToCart()" class="text-block-11">Add to cart</div>
-        <div *ngIf="isBuyed === true"
-             (click)="addToCart()" class="text-block-11">Download</div>
+        <div *ngIf="isBuyed === true">
+          <button (click)="downloadFile()">Скачать example.docx</button>
+        </div>
         <div class="div-block-51">
           <svg (click)="addLike(book.id)" class="svg-icon heart" [class.isLiked]="isLiked" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
             <g id="Layer_2" data-name="Layer 2">

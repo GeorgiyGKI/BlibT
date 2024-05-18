@@ -115,24 +115,13 @@ export class HomeComponent implements OnInit {
           this.paginator.pageSize = result.pageSize;
           this.books = result.data;
         },
-        error: (error) => console.error(error)
+        error: (error) =>console.error(error)
       });
   }
 
   goToAbout(id: number) {
     this.router.navigate(['/about', id]);
   }
-
-  //sortByLikes() {
-  //  this.sortedBooks.sort((a, b) => b.likes - a.likes);
-  //}
-  //sortByViews() {
-  //  this.sortedBooks.sort((a, b) => b.views - a.views);
-  //}
-  //sortByRnd() {
-  //  this.sortedBooks.sort(() => Math.random() - 0.5)
-  //}
- 
 }
 
 
